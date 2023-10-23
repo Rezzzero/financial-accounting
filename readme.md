@@ -55,6 +55,6 @@ Hataie
 ## Contact Us
 
 - Email: hataiee@gmail.com
-- GitHub: [Hataie] https://github.com/Htaie
+- GitHub: https://github.com/Htaie
 ```
 
