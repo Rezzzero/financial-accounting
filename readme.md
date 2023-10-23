@@ -19,7 +19,7 @@ To get started with Financial Accounting, follow these steps:
 
 1. **Clone the Repository:**
    ```
-   git clone https://github.com/your-project.git
+   git clone https://github.com/Htaie/financial-accounting.git
    cd financial-accounting
    ```
 
@@ -46,7 +46,8 @@ The application will be accessible at `http://localhost:3000`.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/). For more details, please visit the [MIT License page](https://choosealicense.com/licenses/mit/).
+
 
 ## Author
 
