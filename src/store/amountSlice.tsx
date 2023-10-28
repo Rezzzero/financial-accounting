@@ -8,7 +8,7 @@ const amountSlice = createSlice({
  name: "account",
  initialState,
  reducers: {
-  addAccount(state, action) {
+  addAmount(state, action) {
    state.account.push({
     id: new Date().toISOString(),
     title: action.payload.title,
@@ -19,6 +19,6 @@ const amountSlice = createSlice({
  },
 });
 
-export const { addAccount: addAccount } = amountSlice.actions;
+export const { addAmount: addAmount } = amountSlice.actions;
 
 export default amountSlice.reducer;

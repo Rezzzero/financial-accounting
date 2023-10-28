@@ -1,6 +1,4 @@
-import React from "react";
-
-const DropzoneFile = (props: any) => {
+const DropzoneFile = ({ onChange, ref} : any) => {
  return (
   <div className="flex items-center justify-center w-full">
    <label
@@ -31,8 +29,8 @@ const DropzoneFile = (props: any) => {
     <input
      id="dropzone-file"
      accept="media/*"
-     onChange={props.onChange}
-     ref={props.reg}
+     onChange={onChange}
+     ref={ref}
      type="file"
      className="hidden"
     />
