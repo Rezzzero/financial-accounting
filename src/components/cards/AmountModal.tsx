@@ -28,8 +28,8 @@ console.log(addAmount)
   setTitle(e.target.value);
  };
  const handleAmountChange = (e: any) => {
-  setAmount(e.target?.result?.parseFloat());
- };
+    setAmount(parseFloat(e.target?.value));
+  };
  const onImageChange = (e: any) => {
   const file = e.target.files[0];
   if (file) {

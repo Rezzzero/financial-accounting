@@ -6,17 +6,17 @@ import AmountModal from "./AmountModal";
 const SpendingBlock = ({ SpendingTitle }: any) => {
  const [modal, toggleModal] = useState(false);
  const account = useSelector((state: any) => state.account.account);
- 
-//  const totalAmounts = account.reduce((acc: number, elem: { amount: number }) => {
-//    return acc + elem.amount;
-//   }, 0);
-  // console.log(typeof(totalAmounts))
-  console.log(account)
+
+ const totalAmounts = account.reduce(
+  (acc: number, elem: { amount: number }) => {
+   return acc + elem.amount;
+  },
+  0
+ );
+
  return (
   <div className="p-10 w-screen ">
-   <h3 className="font-semibold text-xl mb-3 w-80">
-    {SpendingTitle}  руб
-   </h3>
+   <h3 className="font-semibold text-xl mb-3 w-80">{SpendingTitle} {totalAmounts} руб</h3>
    <div className="card max-w-max flex flex-wrap rounded-md shadow-md p-5">
     {account.map((elem: any) => {
      return (

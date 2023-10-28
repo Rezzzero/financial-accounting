@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
- account: {} as { id: string; title: string; amount: number; image: any }[],
+type AccountState = {
+ account: { id: string; title: string; amount: number; image: any }[];
 };
 
+const initialState: AccountState = {
+ account: [],
+};
 const amountSlice = createSlice({
  name: "account",
  initialState,
