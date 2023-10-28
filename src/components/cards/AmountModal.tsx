@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import DropzoneFile from "../DropzoneFile";
 import { useDispatch } from "react-redux";
-import { addAccount } from "../../store/amountSlice";
+import { addAmount } from "../../store/amountSlice";
 
 const AmountModal = ({ toggleModal }: any) => {
  const fileInputRef = useRef(undefined);
@@ -11,9 +11,10 @@ const AmountModal = ({ toggleModal }: any) => {
  const [amountError, setAmountError] = useState("");
 
  const dispatch = useDispatch();
- const addAmount = () => {
+
+ const addAmounts = () => {
   if (title != "" && amount != undefined) {
-   dispatch(addAccount({ amount, title, selectedImage }));
+   dispatch(addAmount({ amount, title, selectedImage }));
    setTitle("");
    setAmount(undefined);
    setSelectedImage(undefined);
@@ -22,13 +23,13 @@ const AmountModal = ({ toggleModal }: any) => {
    setAmountError("Поле не может быть пустым");
   }
  };
-
+console.log(addAmount)
  const handleTitleChange = (e: any) => {
   setTitle(e.target.value);
  };
  const handleAmountChange = (e: any) => {
-  setAmount(e.target?.result?.parseFloat());
- };
+    setAmount(parseFloat(e.target?.value));
+  };
  const onImageChange = (e: any) => {
   const file = e.target.files[0];
   if (file) {
@@ -71,7 +72,7 @@ const AmountModal = ({ toggleModal }: any) => {
         <button
          className=" rounded px-4 py-2 text-white   bg-gray-300"
          onClick={() => {
-          addAmount();
+          addAmounts();
           toggleModal(false);
          }}
         >
