@@ -1,27 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type AccountState = {
- account: { id: string; title: string; amount: number; image: any }[];
+type AmountState = {
+ amount: { id: string; nameExpenses: string; amountSpent: number; image: any }[];
 };
 
-const initialState: AccountState = {
- account: [],
+const initialState: AmountState = {
+ amount: [],
 };
 const amountSlice = createSlice({
- name: "account",
+ name: "amount",
  initialState,
  reducers: {
   addAmount(state, action) {
-   state.account.push({
+   state.amount.push({
     id: new Date().toISOString(),
-    title: action.payload.title,
-    amount: action.payload.amount,
+    nameExpenses: action.payload.nameExpenses,
+    amountSpent: action.payload.amountSpent,
     image: action.payload.selectedImage,
    });
   },
  },
 });
 
-export const { addAmount: addAmount } = amountSlice.actions;
+export const { addAmount: addAmount} = amountSlice.actions;
 
 export default amountSlice.reducer;

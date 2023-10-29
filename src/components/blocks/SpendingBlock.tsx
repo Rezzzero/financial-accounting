@@ -1,30 +1,30 @@
 import { useState } from "react";
-import AmountCard from "./AmountCard";
+import AmountCard from "../cards/AmountCard";
 import { useSelector } from "react-redux/es/hooks/useSelector";
-import AmountModal from "./AmountModal";
+import AmountModal from "../modals/AmountModal";
 
 const SpendingBlock = ({ SpendingTitle }: any) => {
  const [modal, toggleModal] = useState(false);
- const account = useSelector((state: any) => state.account.account);
-
- const totalAmounts = account.reduce(
-  (acc: number, elem: { amount: number }) => {
-   return acc + elem.amount;
-  },
-  0
- );
-
+ const amountSpent = useSelector((state: any) => state.amount.amount);
+ 
+ const totalAmounts = amountSpent.reduce((acc: number, elem: any) => {
+  return acc + parseFloat(elem.amountSpent);
+}, 0);
  return (
   <div className="p-10 w-screen ">
-   <h3 className="font-semibold text-xl mb-3 w-80">{SpendingTitle} {totalAmounts} руб</h3>
+   <h3 className="font-semibold text-xl mb-3 w-80">
+    {SpendingTitle} {totalAmounts} руб
+   </h3>
    <div className="card max-w-max flex flex-wrap rounded-md shadow-md p-5">
-    {account.map((elem: any) => {
+    {amountSpent.map((elem: any) => {
+      console.log(elem)
      return (
       <AmountCard
-       AccountTitle={elem.title}
-       AccountAmount={elem.amount}
+       AccountTitle={elem.nameExpenses}
+       AccountAmount={elem.amountSpent}
        icon={elem.image}
        key={elem.id}
+       imageBg={' '}
       ></AmountCard>
      );
     })}

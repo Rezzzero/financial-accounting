@@ -1,9 +1,10 @@
-import SpendingBlock from "../components/cards/SpendingBlock";
+import AccountBlock from "../components/blocks/AccountBlock";
+import SpendingBlock from "../components/blocks/SpendingBlock";
 
 const MainPage = () => {
  return (
   <div className="div">
-   {/* <AmountBlock data={cards} text={'Счета'}></AmountBlock> */}
+   <AccountBlock text={'Счета'}></AccountBlock>
    <SpendingBlock SpendingTitle={"Расходы"}></SpendingBlock>
   </div>
  );

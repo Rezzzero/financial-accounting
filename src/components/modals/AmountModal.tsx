@@ -5,31 +5,32 @@ import { addAmount } from "../../store/amountSlice";
 
 const AmountModal = ({ toggleModal }: any) => {
  const fileInputRef = useRef(undefined);
- const [amount, setAmount] = useState<number>();
- const [title, setTitle] = useState("");
+ const [amountSpent, setAmountSpent] = useState<number>();
+ const [nameExpenses, setNameExpenses] = useState("");
  const [selectedImage, setSelectedImage] = useState<string>();
  const [amountError, setAmountError] = useState("");
 
  const dispatch = useDispatch();
-
- const addAmounts = () => {
-  if (title != "" && amount != undefined) {
-   dispatch(addAmount({ amount, title, selectedImage }));
-   setTitle("");
-   setAmount(undefined);
-   setSelectedImage(undefined);
-   setAmountError("");
-  } else {
-   setAmountError("Поле не может быть пустым");
+ const handleAddAccount = () => {
+  if (!nameExpenses || !amountSpent) {
+    setAmountError("Поле не может быть пустым");
+    return;
   }
+
+  dispatch(addAmount({amountSpent, nameExpenses, selectedImage }));
+  setNameExpenses("");
+  setAmountSpent(undefined);
+  setSelectedImage(undefined);
+  setAmountError("");
  };
-console.log(addAmount)
- const handleTitleChange = (e: any) => {
-  setTitle(e.target.value);
+
+ const handleNameExpensesChange = (e: any) => {
+  setNameExpenses(e.target.value);
  };
- const handleAmountChange = (e: any) => {
-    setAmount(parseFloat(e.target?.value));
-  };
+ const handleAmountSpentChange = (e: any) => {
+  setAmountSpent(e.target?.value);
+ };
+
  const onImageChange = (e: any) => {
   const file = e.target.files[0];
   if (file) {
@@ -54,16 +55,16 @@ console.log(addAmount)
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
         name="myInput"
         type="text"
-        value={title}
-        onChange={handleTitleChange}
+        value={nameExpenses}
+        onChange={handleNameExpensesChange}
        />
        <label className="mb-4">Сколько потратили:</label>
        <input
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
         name="myInput"
         type="number"
-        value={amount}
-        onChange={handleAmountChange}
+        value={amountSpent}
+        onChange={handleAmountSpentChange}
        />
        <label className="mb-4">Иконка траты:</label>
        <DropzoneFile onChange={onImageChange} ref={fileInputRef}></DropzoneFile>
@@ -72,7 +73,7 @@ console.log(addAmount)
         <button
          className=" rounded px-4 py-2 text-white   bg-gray-300"
          onClick={() => {
-          addAmounts();
+          handleAddAccount();
           toggleModal(false);
          }}
         >
