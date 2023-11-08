@@ -2,6 +2,7 @@ import { useState } from "react";
 import AmountCard from "../cards/AmountCard";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import AmountModal from "../modals/AmountModal";
+import { Link } from "react-router-dom";
 
 const SpendingBlock = ({ SpendingTitle }: any) => {
  const [modal, toggleModal] = useState(false);
@@ -11,13 +12,12 @@ const SpendingBlock = ({ SpendingTitle }: any) => {
   return acc + parseFloat(elem.amountSpent);
 }, 0);
  return (
-  <div className="p-10 w-screen ">
+  <div className="p-10 ">
    <h3 className="font-semibold text-xl mb-3 w-80">
     {SpendingTitle} {totalAmounts} руб
    </h3>
    <div className="card max-w-max flex flex-wrap rounded-md shadow-md p-5">
     {amountSpent.map((elem: any) => {
-      console.log(elem)
      return (
       <AmountCard
        AccountTitle={elem.nameExpenses}
@@ -28,7 +28,7 @@ const SpendingBlock = ({ SpendingTitle }: any) => {
       ></AmountCard>
      );
     })}
-    <button
+    <Link to={"/spending"}
      className="group hover:bg-violet-600  pl-20 pr-20 h-16 mr-2 mb-2 m-1 border-solid border-y border-x drop-shadow-lg rounded-md"
      onClick={() => toggleModal(true)}
     >
@@ -44,7 +44,7 @@ const SpendingBlock = ({ SpendingTitle }: any) => {
       <line x1="12" y1="5" x2="12" y2="19" />{" "}
       <line x1="5" y1="12" x2="19" y2="12" />
      </svg>
-    </button>
+    </Link>
    </div>
    {modal && <AmountModal toggleModal={toggleModal} />}
   </div>

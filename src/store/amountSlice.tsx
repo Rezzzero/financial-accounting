@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type AmountState = {
- amount: { id: string; nameExpenses: string; amountSpent: number; image: any }[];
+ amount: { id: string; nameExpenses: string; amountSpent: string; image: any }[];
 };
 
 const initialState: AmountState = {
@@ -19,9 +19,24 @@ const amountSlice = createSlice({
     image: action.payload.selectedImage,
    });
   },
+  addAmountToAccount: (state, action) => {
+    const { accountId, additionalAmount } = action.payload;
+    const account = state.amount.find((acc) => acc.nameExpenses === accountId);
+  
+    if (account) {
+      const currentAmountSpent = parseFloat(account.amountSpent);
+      const additionalAmountFloat = parseFloat(additionalAmount);
+  
+      if (!isNaN(currentAmountSpent) && !isNaN(additionalAmountFloat)) {
+        const newAmountSpent = (currentAmountSpent + additionalAmountFloat).toString();
+  
+        account.amountSpent = newAmountSpent;
+      }
+    }
+  },
  },
 });
 
-export const { addAmount: addAmount} = amountSlice.actions;
+export const { addAmount: addAmount, addAmountToAccount: addAmountToAccount } = amountSlice.actions;
 
 export default amountSlice.reducer;
