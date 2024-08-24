@@ -3,24 +3,31 @@ import AccountBlock from "../components/blocks/AccountBlock";
 import SpendingBlock from "../components/blocks/SpendingBlock";
 import ExpensesAddModal from "../components/modals/ExpensesAddModal";
 import TargetBlock from "../components/blocks/TargetBlock";
+import { SidebarComponent } from "../components/sidebar/SidebarComponent";
 const MainPage = () => {
- const [modal, toggleModal] = useState(false);
+  const [modal, toggleModal] = useState(false);
 
- return (
-  <div className="div grid" style={{ gridTemplateColumns: "75% 25%" }}>
-   <div className="grid">
-    <AccountBlock text={"Счета"}></AccountBlock>
-    <SpendingBlock SpendingTitle={"Расходы"}></SpendingBlock>
-   </div>
-   <div className=" justify-self-end">
-    <TargetBlock percent={55}></TargetBlock>
-   </div>
-   <button className=" p-2 pr-5 pl-5 border" onClick={() => toggleModal(true)}>
-    Add Expenses
-   </button>
-   {modal && <ExpensesAddModal toggleModal={toggleModal} />}
-  </div>
- );
+  return (
+    <div className="grid" style={{ gridTemplateColumns: "15% 85%" }}>
+      <SidebarComponent />
+      <div className="div grid" style={{ gridTemplateColumns: "75% 25%" }}>
+        <div className="grid">
+          <AccountBlock text={"Счета"}></AccountBlock>
+          <SpendingBlock SpendingTitle={"Расходы"}></SpendingBlock>
+        </div>
+        <div className=" justify-self-end">
+          <TargetBlock percent={55}></TargetBlock>
+        </div>
+        <button
+          className=" p-2 pr-5 pl-5 border"
+          onClick={() => toggleModal(true)}
+        >
+          Add Expenses
+        </button>
+        {modal && <ExpensesAddModal toggleModal={toggleModal} />}
+      </div>
+    </div>
+  );
 };
 
 export default MainPage;
