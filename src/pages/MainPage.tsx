@@ -8,7 +8,7 @@ const MainPage = () => {
   const [modal, toggleModal] = useState(false);
 
   return (
-    <div className="grid" style={{ gridTemplateColumns: "15% 85%" }}>
+    <div className="grid" style={{ gridTemplateColumns: "13% 87%" }}>
       <SidebarComponent />
       <div className="div grid" style={{ gridTemplateColumns: "75% 25%" }}>
         <div className="grid">
