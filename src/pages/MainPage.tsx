@@ -2,9 +2,9 @@ import { useState } from "react";
 import AccountBlock from "../components/blocks/AccountBlock";
 import SpendingBlock from "../components/blocks/SpendingBlock";
 import ExpensesAddModal from "../components/modals/ExpensesAddModal";
-// import TargetBlock from "../components/blocks/TargetBlock";
 import { SidebarComponent } from "../components/sidebar/SidebarComponent";
-import { TargetBlockComponent } from "../components/blocks/TargetComponent";
+import { TargetBlockComponent } from "../components/blocks/target/TargetComponent";
+import { DebtsBlock } from "../components/blocks/debt/DebtsBlock";
 const MainPage = () => {
   const [modal, toggleModal] = useState(false);
 
@@ -17,8 +17,8 @@ const MainPage = () => {
           <SpendingBlock SpendingTitle={"Расходы"}></SpendingBlock>
         </div>
         <div>
-          {/* <TargetBlock percent={55}></TargetBlock> */}
           <TargetBlockComponent />
+          <DebtsBlock />
         </div>
         <button
           className=" p-2 pr-5 pl-5 border"

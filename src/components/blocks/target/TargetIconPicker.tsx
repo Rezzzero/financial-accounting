@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IconPickerProps } from "../../types/TargetTypes/TargetTypes";
+import { IconPickerProps } from "../../../types/TargetTypes/TargetTypes";
 import Modal from "@mui/material/Modal";
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";

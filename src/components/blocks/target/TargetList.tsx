@@ -1,7 +1,7 @@
 import { useState } from "react";
-import LinearWithValueLabel from "./TargetProgress";
+import LinearWithValueLabel from "../ProgressBar";
 import { TargetIconPicker } from "./TargetIconPicker";
-import { TargetProps } from "../../types/TargetTypes/TargetTypes";
+import { TargetProps } from "../../../types/TargetTypes/TargetTypes";
 
 export const TargetList = ({
   targetData,
