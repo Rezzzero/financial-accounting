@@ -10,7 +10,6 @@ interface AddDebtModalProps {
 export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
   const [currValue, setCurrValue] = useState(0);
   const [paidValue, setPaidValue] = useState(0);
-  const [remainValue, setRemainValue] = useState(0);
   const [returnTo, setReturnTo] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -20,7 +19,6 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
     if (isOpen) {
       setCurrValue(0);
       setPaidValue(0);
-      setRemainValue(0);
       setReturnTo(new Date().toISOString().split("T")[0]);
       setName("");
     }
@@ -30,7 +28,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
     const newDebt = {
       currValue,
       paidValue,
-      remainValue,
+      remainValue: currValue - paidValue,
       returnTo: new Date(returnTo),
       name,
     };
@@ -68,15 +66,6 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             placeholder="Выплачено"
             value={paidValue}
             onChange={(e) => setPaidValue(Number(e.target.value))}
-            className="border border-gray-500 p-2 rounded-lg"
-          />
-
-          <label htmlFor="name">Осталось выплатить</label>
-          <input
-            type="number"
-            placeholder="Осталось выплатить"
-            value={remainValue}
-            onChange={(e) => setRemainValue(Number(e.target.value))}
             className="border border-gray-500 p-2 rounded-lg"
           />
           <input
