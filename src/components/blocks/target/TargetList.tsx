@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LinearWithValueLabel from "../ProgressBar";
-import { TargetIconPicker } from "./TargetIconPicker";
+import { TargetIcon } from "./TargetIcon";
 import { TargetProps } from "../../../types/TargetTypes/TargetTypes";
 
 export const TargetList = ({
@@ -11,34 +11,18 @@ export const TargetList = ({
   setTargetData: React.Dispatch<React.SetStateAction<TargetProps[]>>;
 }) => {
   const [editIndex, setEditIndex] = useState<number | null>(null);
-  const [editField, setEditField] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
 
-  const handleIconSelect = (index: number, icon: string, color: string) => {
-    const updatedTargets = [...targetData];
-    updatedTargets[index].icon = { type: icon, background: color };
-    setTargetData(updatedTargets);
-  };
-
-  const handleEdit = (index: number, field: string, value: string) => {
+  const handleEdit = (index: number) => {
     setEditIndex(index);
-    setEditField(field);
-    setInputValue(value);
+    setInputValue(targetData[index].currentValue.toString());
   };
 
   const handleSave = (index: number) => {
     const updatedTargets = [...targetData];
-    updatedTargets[index] = {
-      ...updatedTargets[index],
-      [editField]:
-        editField === "currentValue" || editField === "targetValue"
-          ? Number(inputValue.replace(/\s/g, ""))
-          : inputValue,
-    };
+    updatedTargets[index].currentValue = Number(inputValue.replace(/\s/g, ""));
     setTargetData(updatedTargets);
     setEditIndex(null);
-    setEditField("");
-    setInputValue("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
@@ -62,15 +46,12 @@ export const TargetList = ({
           className="flex flex-col border border-gray-400 rounded-lg p-2 mb-2"
         >
           <div className="flex gap-2">
-            <TargetIconPicker
+            <TargetIcon
               selectedIcon={target.icon.type}
               selectedColor={target.icon.background}
-              onIconSelect={(icon, color) =>
-                handleIconSelect(index, icon, color)
-              }
             />
             <div className="flex flex-col">
-              {editIndex === index && editField === "currentValue" ? (
+              {editIndex === index ? (
                 <input
                   type="text"
                   value={inputValue}
@@ -83,41 +64,14 @@ export const TargetList = ({
               ) : (
                 <p
                   className="font-bold cursor-pointer"
-                  onClick={() =>
-                    handleEdit(
-                      index,
-                      "currentValue",
-                      target.currentValue.toString()
-                    )
-                  }
+                  onClick={() => handleEdit(index)}
                 >
                   {target.currentValue.toLocaleString()} ₽
                 </p>
               )}
-              {editIndex === index && editField === "targetValue" ? (
-                <input
-                  type="text"
-                  value={inputValue}
-                  onChange={(e) => setInputValue(e.target.value)}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                  onBlur={() => handleSave(index)}
-                  className="text-sm"
-                  autoFocus
-                />
-              ) : (
-                <p
-                  className="text-sm cursor-pointer"
-                  onClick={() =>
-                    handleEdit(
-                      index,
-                      "targetValue",
-                      target.targetValue.toString()
-                    )
-                  }
-                >
-                  из {target.targetValue.toLocaleString()} ₽
-                </p>
-              )}
+              <p className="text-sm">
+                из {target.targetValue.toLocaleString()} ₽
+              </p>
             </div>
           </div>
           <LinearWithValueLabel
@@ -126,23 +80,7 @@ export const TargetList = ({
               target.targetValue
             )}
           />
-          {editIndex === index && editField === "name" ? (
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={(e) => handleKeyDown(e, index)}
-              onBlur={() => handleSave(index)}
-              autoFocus
-            />
-          ) : (
-            <p
-              className="cursor-pointer"
-              onClick={() => handleEdit(index, "name", target.name)}
-            >
-              {target.name}
-            </p>
-          )}
+          <p>{target.name}</p>
         </div>
       ))}
     </>

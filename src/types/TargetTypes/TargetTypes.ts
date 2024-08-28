@@ -8,8 +8,13 @@ export interface TargetProps {
   name: string;
 }
 
-export interface IconPickerProps {
+export interface TargetIconProps {
   selectedIcon: string;
   selectedColor: string;
-  onIconSelect: (icon: string, color: string) => void;
+}
+
+export interface AddTargetModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (target: TargetProps) => void;
 }
