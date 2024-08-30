@@ -1,26 +1,29 @@
 import { useState, useEffect } from "react";
-import {
-  TargetProps,
-  AddTargetModalProps,
-} from "../../../types/TargetTypes/TargetTypes";
-import { iconMapping, availableColors } from "../SelectedIcon";
+import { IncomeProps } from "../../../types/IncomeTypes/IncomeTypes";
+import { availableColors, iconMapping } from "../SelectedIcon";
 
-export const TargetModal = ({
+interface AddIncomeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (newIncome: IncomeProps) => void;
+}
+
+export const IncomeModal = ({
   isOpen,
   onClose,
   onSave,
-}: AddTargetModalProps) => {
-  const [currValue, setCurrValue] = useState(0);
-  const [targetValue, setTargetValue] = useState(0);
-  const [name, setName] = useState("");
+}: AddIncomeModalProps) => {
+  const [incomeTitle, setIncomeTitle] = useState<string>("");
+  const [incomeCurrency, setIncomeCurrency] = useState<string>("");
+  const [incomeAmount, setIncomeAmount] = useState<number>(0);
   const [selectedIcon, setSelectedIcon] = useState<string>("add");
   const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
 
   useEffect(() => {
     if (!isOpen) {
-      setCurrValue(0);
-      setTargetValue(0);
-      setName("");
+      setIncomeTitle("");
+      setIncomeCurrency("");
+      setIncomeAmount(0);
       setSelectedIcon("add");
       setSelectedColor("bg-gray-400");
     }
@@ -35,45 +38,48 @@ export const TargetModal = ({
   };
 
   const handleSave = () => {
-    const newTarget: TargetProps = {
-      name,
-      currentValue: currValue,
-      targetValue,
+    const newIncome = {
+      title: incomeTitle,
+      currency: incomeCurrency,
+      amount: incomeAmount,
       icon: { type: selectedIcon, background: selectedColor },
     };
-    onSave(newTarget);
+    onSave(newIncome);
     onClose();
   };
 
   if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg">
-        <h2 className="text-xl font-bold mb-4">Добавить цель</h2>
-        <div className="flex flex-col gap-2 mb-4">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center justify-center">
+      <div className="bg-white rounded-lg p-4 w-80">
+        <h2>Добавить Источник Дохода</h2>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="name">Название</label>
           <input
             type="text"
-            className="border border-gray-300 rounded p-2"
-            placeholder="Название цели"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            placeholder="Название"
+            value={incomeTitle}
+            onChange={(e) => setIncomeTitle(e.target.value)}
+            className="border border-gray-500 p-2 rounded-lg"
           />
+          <label htmlFor="name">Валюта</label>
+          <input
+            type="text"
+            placeholder="Валюта дохода"
+            value={incomeCurrency}
+            onChange={(e) => setIncomeCurrency(e.target.value)}
+            className="border border-gray-500 p-2 rounded-lg"
+          />
+          <label htmlFor="name">Сумма дохода</label>
           <input
             type="number"
-            className="border border-gray-300 rounded p-2"
-            placeholder="Текущее значение"
-            value={currValue}
-            onChange={(e) => setCurrValue(Number(e.target.value))}
-          />
-          <input
-            type="number"
-            className="border border-gray-300 rounded p-2"
-            placeholder="Цель"
-            value={targetValue}
-            onChange={(e) => setTargetValue(Number(e.target.value))}
+            placeholder="Сумма дохода"
+            value={incomeAmount}
+            onChange={(e) => setIncomeAmount(Number(e.target.value))}
+            className="border border-gray-500 p-2 rounded-lg"
           />
         </div>
-
         <h3>Выберите иконку</h3>
         <div className="flex gap-4 mt-2 mb-4">
           {Object.keys(iconMapping).map((icon) => (
@@ -88,7 +94,6 @@ export const TargetModal = ({
             </div>
           ))}
         </div>
-
         <h3>Выберите цвет</h3>
         <div className="flex gap-4 mt-2 mb-4">
           {availableColors.map((color) => (
@@ -101,7 +106,6 @@ export const TargetModal = ({
             />
           ))}
         </div>
-
         <div className="flex justify-end mt-4">
           <button
             onClick={onClose}

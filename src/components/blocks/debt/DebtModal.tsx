@@ -51,7 +51,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             className="border border-gray-500 p-2 rounded-lg"
           />
 
-          <label htmlFor="name">Сумма долга</label>
+          <label htmlFor="currValue">Сумма долга</label>
           <input
             type="number"
             placeholder="Сумма долга"
@@ -60,7 +60,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             className="border border-gray-500 p-2 rounded-lg"
           />
 
-          <label htmlFor="name">Выплачено</label>
+          <label htmlFor="paidValue">Выплачено</label>
           <input
             type="number"
             placeholder="Выплачено"

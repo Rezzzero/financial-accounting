@@ -14,7 +14,7 @@ export const BlockFormComponent = ({
   return (
     <div className="w-[100%] h-[300px] py-2 px-4 border border-gray-300 rounded-lg overflow-y-auto shadow-lg shadow-gray-300 mb-5">
       <div className="flex justify-between font-bold mb-4">
-        <h1 className="text-xl">{title}</h1>
+        <h1 className="text-2xl">{title}</h1>
         <button type="button" onClick={onAddItem} className="text-blue-400">
           Добавить
         </button>

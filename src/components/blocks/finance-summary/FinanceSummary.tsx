@@ -45,7 +45,7 @@ export const FinanceSummary = () => {
 
   return (
     <div
-      className="w-[75%] h-[150px] text-white py-4 px-5 border border-gray-300 rounded-lg overflow-y-auto shadow-lg shadow-gray-300 mb-5"
+      className="w-[75%] h-[150px] text-white py-4 px-5 border border-gray-300 rounded-lg overflow-y-auto shadow-lg shadow-gray-300 mb-[80px]"
       style={{
         background: `
           linear-gradient(

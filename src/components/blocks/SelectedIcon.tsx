@@ -1,4 +1,4 @@
-import { TargetIconProps } from "../../../types/TargetTypes/TargetTypes";
+import { TargetIconProps } from "../../types/TargetTypes/TargetTypes";
 import AddIcon from "@mui/icons-material/Add";
 import HomeIcon from "@mui/icons-material/Home";
 import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
@@ -19,7 +19,7 @@ export const availableColors = [
   "bg-yellow-500",
 ];
 
-export const TargetIcon = ({
+export const SelectedIcon = ({
   selectedIcon,
   selectedColor,
 }: TargetIconProps) => {

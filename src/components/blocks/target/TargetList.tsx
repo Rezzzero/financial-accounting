@@ -1,6 +1,6 @@
 import { useState } from "react";
 import LinearWithValueLabel from "../ProgressBar";
-import { TargetIcon } from "./TargetIcon";
+import { SelectedIcon } from "../SelectedIcon";
 import { TargetProps } from "../../../types/TargetTypes/TargetTypes";
 
 export const TargetList = ({
@@ -46,7 +46,7 @@ export const TargetList = ({
           className="flex flex-col border border-gray-400 rounded-lg p-2 mb-2"
         >
           <div className="flex gap-2">
-            <TargetIcon
+            <SelectedIcon
               selectedIcon={target.icon.type}
               selectedColor={target.icon.background}
             />
