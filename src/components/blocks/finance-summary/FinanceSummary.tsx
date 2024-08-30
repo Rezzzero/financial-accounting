@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { apiKey } from "../../../utils/apiKeys";
+import { formatNumber } from "../../../utils/formatingNumbers";
 
 export const FinanceSummary = () => {
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -38,10 +39,6 @@ export const FinanceSummary = () => {
 
     fetchExchangeRate();
   }, []);
-
-  const formatNumber = (num: number) => {
-    return new Intl.NumberFormat("ru-RU").format(num);
-  };
 
   return (
     <div

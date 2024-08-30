@@ -8,8 +8,17 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export const SidebarComponent = () => {
+export const SidebarComponent = ({
+  onToggleSidebar,
+}: {
+  onToggleSidebar: (collapsed: boolean) => void;
+}) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  const handleToggleSidebar = () => {
+    setToggleSidebar(!toggleSidebar);
+    onToggleSidebar(!toggleSidebar);
+  };
 
   return (
     <motion.div
@@ -23,12 +32,12 @@ export const SidebarComponent = () => {
         <div className="flex justify-end pr-2 py-2">
           {toggleSidebar ? (
             <ArrowForwardIosIcon
-              onClick={() => setToggleSidebar(!toggleSidebar)}
+              onClick={handleToggleSidebar}
               className="cursor-pointer"
             />
           ) : (
             <ArrowBackIosNewIcon
-              onClick={() => setToggleSidebar(!toggleSidebar)}
+              onClick={handleToggleSidebar}
               className="cursor-pointer"
             />
           )}
