@@ -2,8 +2,8 @@ import { SidebarComponent } from "../components/sidebar/SidebarComponent";
 import { TargetBlockComponent } from "../components/blocks/target/TargetComponent";
 import { DebtsBlock } from "../components/blocks/debt/DebtsBlock";
 import { FinanceSummary } from "../components/blocks/finance-summary/FinanceSummary";
-import { IncomeBlock } from "../components/blocks/income/IncomeBlock";
 import { useState } from "react";
+import { CoreFinanceComponent } from "../components/blocks/core-finance-block/CoreFinanceComponent";
 const MainPage = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
@@ -21,11 +21,13 @@ const MainPage = () => {
         <FinanceSummary />
         <h1 className="text-3xl font-bold mb-5">Операции</h1>
         <div
-          className="div grid gap-2"
+          className="div grid gap-5"
           style={{ gridTemplateColumns: "75% 25%" }}
         >
           <div className="grid">
-            <IncomeBlock />
+            <CoreFinanceComponent title={"Источники дохода"} />
+            <CoreFinanceComponent title={"Счета"} />
+            <CoreFinanceComponent title={"Расходы"} />
           </div>
           <div>
             <TargetBlockComponent />

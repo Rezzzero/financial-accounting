@@ -51,6 +51,7 @@ export const TargetModal = ({
       <div className="bg-white p-4 rounded-lg">
         <h2 className="text-xl font-bold mb-4">Добавить цель</h2>
         <div className="flex flex-col gap-2 mb-4">
+          <label htmlFor="target-name">Название цели</label>
           <input
             type="text"
             className="border border-gray-300 rounded p-2"
@@ -58,13 +59,15 @@ export const TargetModal = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+          <label htmlFor="target-value">Текущаяя Сумма</label>
           <input
             type="number"
             className="border border-gray-300 rounded p-2"
-            placeholder="Текущее значение"
+            placeholder="Текущаяя Сумма"
             value={currValue}
             onChange={(e) => setCurrValue(Number(e.target.value))}
           />
+          <label htmlFor="target-value">Нужно собрать</label>
           <input
             type="number"
             className="border border-gray-300 rounded p-2"
