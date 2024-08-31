@@ -1,18 +1,29 @@
 import { useState, useEffect } from "react";
 import { apiKey } from "../../../utils/apiKeys";
 import { formatNumber } from "../../../utils/formatingNumbers";
+import { RootState } from "../../../store/types";
+import { useSelector } from "react-redux";
+import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 
 export const FinanceSummary = () => {
   const [exchangeRate, setExchangeRate] = useState(null);
   const currentMonth = new Date().toLocaleString("ru-RU", { month: "long" });
+
+  const incomeList = useSelector((state: RootState) => state.income.list);
+  const expenseList = useSelector((state: RootState) => state.expenses.list);
+
+  const total = (list: CoreFinanceProps[]) => {
+    return list.reduce((acc, item) => acc + item.amount, 0);
+  };
+
   const financeSummaryData = [
     {
       title: "Доход",
-      amount: 12000,
+      amount: total(incomeList),
     },
     {
       title: "Расход",
-      amount: 8000,
+      amount: total(expenseList),
     },
     {
       title: "Баланс",

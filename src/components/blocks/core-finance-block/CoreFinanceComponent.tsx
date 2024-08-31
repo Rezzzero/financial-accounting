@@ -3,15 +3,43 @@ import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTyp
 import { BlockFormComponent } from "../BlockFormComponent";
 import { CoreFinanceList } from "./CoreFinanceList";
 import { CoreFinanceModal } from "./CoreFinanceModal";
+import { RootState } from "../../../store/types";
+import { useSelector, useDispatch } from "react-redux";
+import { addExpense } from "../../../store/slices/expensesSlice";
+import { addIncome } from "../../../store/slices/incomeSlice";
+import { addAccount } from "../../../store/slices/accountsSlice";
 
 export const CoreFinanceComponent = ({ title }: { title: string }) => {
-  const [coreFinanceData, setCoreFinanceData] = useState(
-    [] as CoreFinanceProps[]
-  );
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const coreFinanceData = useSelector((state: RootState) => {
+    switch (title) {
+      case "Источники дохода":
+        return state.income.list;
+      case "Счета":
+        return state.accounts.list;
+      case "Расходы":
+        return state.expenses.list;
+      default:
+        return [];
+    }
+  });
+
   const handleAddFinanceCore = (newCoreFinance: CoreFinanceProps) => {
-    setCoreFinanceData([...coreFinanceData, newCoreFinance]);
+    switch (title) {
+      case "Источники дохода":
+        dispatch(addIncome(newCoreFinance));
+        break;
+      case "Счета":
+        dispatch(addAccount(newCoreFinance));
+        break;
+      case "Расходы":
+        dispatch(addExpense(newCoreFinance));
+        break;
+      default:
+        break;
+    }
   };
 
   return (

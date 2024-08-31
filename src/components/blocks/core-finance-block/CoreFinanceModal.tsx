@@ -40,7 +40,7 @@ export const CoreFinanceModal = ({
   };
 
   const handleSave = () => {
-    const newCoreFinance = {
+    const newCoreFinance: CoreFinanceProps = {
       title: coreFinanceTitle,
       currency: coreFinanceCurrency,
       amount: coreFinanceAmount,
