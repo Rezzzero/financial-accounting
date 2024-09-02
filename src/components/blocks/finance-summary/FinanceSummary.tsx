@@ -12,6 +12,7 @@ export const FinanceSummary = () => {
 
   const incomeList = useSelector((state: RootState) => state.income.list);
   const expenseList = useSelector((state: RootState) => state.expenses.list);
+  const accountsList = useSelector((state: RootState) => state.accounts.list);
   const debtList = useSelector((state: RootState) => state.debts.list);
 
   const total = (list: CoreFinanceProps[]) => {
@@ -33,7 +34,7 @@ export const FinanceSummary = () => {
     },
     {
       title: "Баланс",
-      amount: 15000,
+      amount: total(accountsList),
     },
     {
       title: "Долги",
@@ -41,21 +42,21 @@ export const FinanceSummary = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   const fetchExchangeRate = async () => {
-  //     try {
-  //       const response = await fetch(
-  //         `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
-  //       );
-  //       const data = await response.json();
-  //       setExchangeRate(data.conversion_rates.RUB.toFixed(2));
-  //     } catch (error) {
-  //       console.error("Ошибка при получении курса валют:", error);
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchExchangeRate = async () => {
+      try {
+        const response = await fetch(
+          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
+        );
+        const data = await response.json();
+        setExchangeRate(data.conversion_rates.RUB.toFixed(2));
+      } catch (error) {
+        console.error("Ошибка при получении курса валют:", error);
+      }
+    };
 
-  //   fetchExchangeRate();
-  // }, []);
+    fetchExchangeRate();
+  }, []);
 
   return (
     <div
