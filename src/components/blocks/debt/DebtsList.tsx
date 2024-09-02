@@ -3,32 +3,29 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LinearWithValueLabel from "../ProgressBar";
 import { useState } from "react";
 import { formatNumber } from "../../../utils/formatingNumbers";
+import { useDispatch } from "react-redux";
+import { updateDebt } from "../../../store/slices/debtsSlice";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const DebtsList = ({
   debtsData,
-  setDebtsData,
+  removeDebt,
 }: {
   debtsData: DebtProps[];
-  setDebtsData: React.Dispatch<React.SetStateAction<DebtProps[]>>;
+  removeDebt: (itemTitle: string) => void;
 }) => {
+  const dispatch = useDispatch();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [newPayment, setNewPayment] = useState<number | null>(null);
 
   const handleSavePayment = (index: number) => {
     if (newPayment !== null) {
-      const updatedDebts = debtsData.map((debt, i) => {
-        if (i === index) {
-          const updatedPaidValue = debt.paidValue + newPayment;
-          return {
-            ...debt,
-            paidValue: updatedPaidValue,
-            remainValue: debt.remainValue - updatedPaidValue,
-          };
-        }
-        return debt;
-      });
+      const updatedDebt = { ...debtsData[index] };
+      updatedDebt.paidValue += newPayment;
+      updatedDebt.remainValue = updatedDebt.currValue - updatedDebt.paidValue;
 
-      setDebtsData(updatedDebts);
+      dispatch(updateDebt(updatedDebt));
+
       setNewPayment(null);
       setEditingIndex(null);
     }
@@ -42,8 +39,12 @@ export const DebtsList = ({
         return (
           <div
             key={index}
-            className="flex flex-col border border-gray-400 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
+            className="flex flex-col relative border border-gray-400 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
           >
+            <CloseIcon
+              className="absolute right-1 top-1 cursor-pointer hover:text-red-600"
+              onClick={() => removeDebt(debt.title)}
+            />
             <div className="flex gap-2">
               <div className="flex h-[45px] w-[45px] bg-red-500 text-white rounded-full justify-center items-center cursor-pointer">
                 <AttachMoneyIcon />
@@ -85,7 +86,7 @@ export const DebtsList = ({
               </div>
             </div>
             <LinearWithValueLabel percentage={percentage} />
-            <p>{debt.name}</p>
+            <p>{debt.title}</p>
           </div>
         );
       })}

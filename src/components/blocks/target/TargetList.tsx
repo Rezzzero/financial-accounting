@@ -3,14 +3,18 @@ import LinearWithValueLabel from "../ProgressBar";
 import { SelectedIcon } from "../SelectedIcon";
 import { TargetProps } from "../../../types/TargetTypes/TargetTypes";
 import { formatNumber } from "../../../utils/formatingNumbers";
+import { useDispatch } from "react-redux";
+import { updateGoal } from "../../../store/slices/goalsSlice";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const TargetList = ({
   targetData,
-  setTargetData,
+  removeTarget,
 }: {
   targetData: TargetProps[];
-  setTargetData: React.Dispatch<React.SetStateAction<TargetProps[]>>;
+  removeTarget: (itemTitle: string) => void;
 }) => {
+  const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState<string>("");
 
@@ -20,9 +24,11 @@ export const TargetList = ({
   };
 
   const handleSave = (index: number) => {
-    const updatedTargets = [...targetData];
-    updatedTargets[index].currentValue = Number(inputValue);
-    setTargetData(updatedTargets);
+    const updatedTarget = {
+      ...targetData[index],
+      currentValue: Number(inputValue),
+    };
+    dispatch(updateGoal(updatedTarget));
     setEditIndex(null);
   };
 
@@ -44,8 +50,12 @@ export const TargetList = ({
       {targetData.map((target, index) => (
         <div
           key={index}
-          className="flex flex-col border border-gray-400 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
+          className="flex flex-col relative border border-gray-400 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
         >
+          <CloseIcon
+            className="absolute right-1 top-1 cursor-pointer hover:text-red-600"
+            onClick={() => removeTarget(target.name)}
+          />
           <div className="flex gap-2">
             <SelectedIcon
               selectedIcon={target.icon.type}

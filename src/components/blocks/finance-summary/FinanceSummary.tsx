@@ -4,6 +4,7 @@ import { formatNumber } from "../../../utils/formatingNumbers";
 import { RootState } from "../../../store/types";
 import { useSelector } from "react-redux";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
+import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
 
 export const FinanceSummary = () => {
   const [exchangeRate, setExchangeRate] = useState(null);
@@ -11,9 +12,14 @@ export const FinanceSummary = () => {
 
   const incomeList = useSelector((state: RootState) => state.income.list);
   const expenseList = useSelector((state: RootState) => state.expenses.list);
+  const debtList = useSelector((state: RootState) => state.debts.list);
 
   const total = (list: CoreFinanceProps[]) => {
     return list.reduce((acc, item) => acc + item.amount, 0);
+  };
+
+  const totalDebts = (list: DebtProps[]) => {
+    return list.reduce((acc, item) => acc + item.remainValue, 0);
   };
 
   const financeSummaryData = [
@@ -31,25 +37,25 @@ export const FinanceSummary = () => {
     },
     {
       title: "Долги",
-      amount: 5000,
+      amount: totalDebts(debtList),
     },
   ];
 
-  useEffect(() => {
-    const fetchExchangeRate = async () => {
-      try {
-        const response = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
-        );
-        const data = await response.json();
-        setExchangeRate(data.conversion_rates.RUB.toFixed(2));
-      } catch (error) {
-        console.error("Ошибка при получении курса валют:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchExchangeRate = async () => {
+  //     try {
+  //       const response = await fetch(
+  //         `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
+  //       );
+  //       const data = await response.json();
+  //       setExchangeRate(data.conversion_rates.RUB.toFixed(2));
+  //     } catch (error) {
+  //       console.error("Ошибка при получении курса валют:", error);
+  //     }
+  //   };
 
-    fetchExchangeRate();
-  }, []);
+  //   fetchExchangeRate();
+  // }, []);
 
   return (
     <div

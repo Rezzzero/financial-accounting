@@ -17,11 +17,11 @@ const debtsSlice = createSlice({
       state.list.push(action.payload);
     },
     removeDebt: (state, action: PayloadAction<string>) => {
-      state.list = state.list.filter((item) => item.name !== action.payload);
+      state.list = state.list.filter((item) => item.title !== action.payload);
     },
     updateDebt: (state, action: PayloadAction<DebtProps>) => {
       const index = state.list.findIndex(
-        (expense) => expense.name === action.payload.name
+        (expense) => expense.title === action.payload.title
       );
       if (index !== -1) {
         state.list[index] = action.payload;

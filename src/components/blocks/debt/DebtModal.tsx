@@ -13,24 +13,24 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
   const [returnTo, setReturnTo] = useState(
     new Date().toISOString().split("T")[0]
   );
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
 
   useEffect(() => {
     if (isOpen) {
       setCurrValue(0);
       setPaidValue(0);
       setReturnTo(new Date().toISOString().split("T")[0]);
-      setName("");
+      setTitle("");
     }
   }, [isOpen]);
 
   const handleSave = () => {
-    const newDebt = {
+    const newDebt: DebtProps = {
       currValue,
       paidValue,
       remainValue: currValue - paidValue,
       returnTo: new Date(returnTo),
-      name,
+      title,
     };
     onSave(newDebt);
     onClose();
@@ -46,8 +46,8 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
           <input
             type="text"
             placeholder="Название"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
             className="border border-gray-500 p-2 rounded-lg"
           />
 
