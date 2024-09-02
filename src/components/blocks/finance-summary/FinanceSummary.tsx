@@ -6,8 +6,23 @@ import { useSelector } from "react-redux";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
 
+const convertToRUB = (amount: number, currency: string, rates: any) => {
+  if (!rates) return 0;
+
+  const conversionRates: { [key: string]: number } = {
+    RUB: rates.RUB,
+    USD: rates.USD,
+    EUR: rates.EUR,
+    UAH: rates.UAH,
+  };
+
+  const amountInRUB = amount / conversionRates[currency];
+
+  return amountInRUB;
+};
+
 export const FinanceSummary = () => {
-  const [exchangeRate, setExchangeRate] = useState(null);
+  const [exchangeRates, setExchangeRates] = useState<any>(null);
   const currentMonth = new Date().toLocaleString("ru-RU", { month: "long" });
 
   const incomeList = useSelector((state: RootState) => state.income.list);
@@ -16,7 +31,11 @@ export const FinanceSummary = () => {
   const debtList = useSelector((state: RootState) => state.debts.list);
 
   const total = (list: CoreFinanceProps[]) => {
-    return list.reduce((acc, item) => acc + item.amount, 0);
+    return list.reduce(
+      (acc, item) =>
+        acc + convertToRUB(item.amount, item.currency, exchangeRates),
+      0
+    );
   };
 
   const totalDebts = (list: DebtProps[]) => {
@@ -43,19 +62,19 @@ export const FinanceSummary = () => {
   ];
 
   useEffect(() => {
-    const fetchExchangeRate = async () => {
+    const fetchExchangeRates = async () => {
       try {
         const response = await fetch(
-          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD`
+          `https://v6.exchangerate-api.com/v6/${apiKey}/latest/RUB`
         );
         const data = await response.json();
-        setExchangeRate(data.conversion_rates.RUB.toFixed(2));
+        setExchangeRates(data.conversion_rates);
       } catch (error) {
         console.error("Ошибка при получении курса валют:", error);
       }
     };
 
-    fetchExchangeRate();
+    fetchExchangeRates();
   }, []);
 
   return (
@@ -81,7 +100,11 @@ export const FinanceSummary = () => {
           {currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)}
         </h1>
         <p className="text-sm font-semibold bg-gray-200 bg-opacity-10 rounded-lg px-2 py-1">
-          {exchangeRate ? `1 USD = ${exchangeRate} рубля` : "Загрузка..."}
+          {exchangeRates
+            ? `1 USD = ${(exchangeRates.RUB / exchangeRates.USD).toFixed(
+                2
+              )} рубля`
+            : "Загрузка..."}
         </p>
       </div>
       <div className="flex justify-center gap-4">

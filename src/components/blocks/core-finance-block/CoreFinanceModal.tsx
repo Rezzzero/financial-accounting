@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 import { availableColors, iconMapping } from "../SelectedIcon";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 interface CoreFinanceModalProps {
   isOpen: boolean;
@@ -63,35 +64,42 @@ export const CoreFinanceModal = ({
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center justify-center">
       <div className="bg-white rounded-lg p-4 w-80">
-        <h2>{modalTitle}</h2>
-        <div className="flex flex-col gap-2">
-          <label htmlFor="name">Название</label>
+        <h1 className="text-xl font-bold mb-4 text-center">{modalTitle}</h1>
+        <div className="flex flex-col">
+          <p>Название</p>
           <input
             type="text"
             placeholder="Название"
             value={coreFinanceTitle}
             onChange={(e) => setCoreFinanceTitle(e.target.value)}
-            className="border border-gray-500 p-2 rounded-lg"
+            className="border border-gray-500 p-2 rounded-lg mb-2"
           />
-          <label htmlFor="name">Валюта</label>
-          <input
-            type="text"
-            placeholder="Валюта"
-            value={coreFinanceCurrency}
-            onChange={(e) => setCoreFinanceCurrency(e.target.value)}
-            className="border border-gray-500 p-2 rounded-lg"
-          />
-          <label htmlFor="name">Сумма</label>
+
+          <FormControl fullWidth>
+            <p>Валюта</p>
+            <Select
+              value={coreFinanceCurrency}
+              onChange={(e) => setCoreFinanceCurrency(e.target.value)}
+              style={{ height: 42, border: "1px solid gray", borderRadius: 8 }}
+            >
+              <MenuItem value="USD">USD</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
+              <MenuItem value="RUB">RUB</MenuItem>
+              <MenuItem value="UAH">UAH</MenuItem>
+            </Select>
+          </FormControl>
+
+          <p>Сумма</p>
           <input
             type="number"
             placeholder="Сумма"
             value={coreFinanceAmount}
             onChange={(e) => setCoreFinanceAmount(Number(e.target.value))}
-            className="border border-gray-500 p-2 rounded-lg"
+            className="border border-gray-500 p-2 rounded-lg mb-2"
           />
         </div>
         <h3>Выберите иконку</h3>
-        <div className="flex gap-4 mt-2 mb-4">
+        <div className="flex flex-nowrap gap-4 mt-2 mb-2">
           {Object.keys(iconMapping).map((icon) => (
             <div
               key={icon}
@@ -104,8 +112,8 @@ export const CoreFinanceModal = ({
             </div>
           ))}
         </div>
-        <h3>Выберите цвет</h3>
-        <div className="flex gap-4 mt-2 mb-4">
+        <h3>Выберите цвет иконки</h3>
+        <div className="flex flex-nowrap gap-4 mt-2 mb-4">
           {availableColors.map((color) => (
             <div
               key={color}
