@@ -6,6 +6,18 @@ import { formatNumber } from "../../../utils/formatingNumbers";
 import { useDispatch } from "react-redux";
 import { updateDebt } from "../../../store/slices/debtsSlice";
 import CloseIcon from "@mui/icons-material/Close";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+};
 
 export const DebtsList = ({
   debtsData,
@@ -32,7 +44,7 @@ export const DebtsList = ({
   };
 
   return (
-    <>
+    <Slider {...sliderSettings}>
       {debtsData.map((debt, index) => {
         const percentage = (debt.paidValue / debt.currValue) * 100;
 
@@ -90,6 +102,6 @@ export const DebtsList = ({
           </div>
         );
       })}
-    </>
+    </Slider>
   );
 };

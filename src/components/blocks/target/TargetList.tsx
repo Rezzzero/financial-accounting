@@ -6,6 +6,18 @@ import { formatNumber } from "../../../utils/formatingNumbers";
 import { useDispatch } from "react-redux";
 import { updateGoal } from "../../../store/slices/goalsSlice";
 import CloseIcon from "@mui/icons-material/Close";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
+
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: false,
+};
 
 export const TargetList = ({
   targetData,
@@ -46,7 +58,7 @@ export const TargetList = ({
   };
 
   return (
-    <>
+    <Slider {...sliderSettings}>
       {targetData.map((target, index) => (
         <div
           key={index}
@@ -92,6 +104,6 @@ export const TargetList = ({
           <p>{target.name}</p>
         </div>
       ))}
-    </>
+    </Slider>
   );
 };
