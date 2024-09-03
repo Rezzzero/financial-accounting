@@ -41,14 +41,14 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-4 rounded-lg w-80">
         <h2 className="text-xl font-bold mb-4">Добавить долг</h2>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col">
           <label htmlFor="name">Название</label>
           <input
             type="text"
             placeholder="Название"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border border-gray-500 p-2 rounded-lg"
+            className="border border-gray-500 p-2 mb-2 rounded-lg"
           />
 
           <label htmlFor="currValue">Сумма долга</label>
@@ -57,7 +57,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             placeholder="Сумма долга"
             value={currValue}
             onChange={(e) => setCurrValue(Number(e.target.value))}
-            className="border border-gray-500 p-2 rounded-lg"
+            className="border border-gray-500 p-2 mb-2 rounded-lg"
           />
 
           <label htmlFor="paidValue">Выплачено</label>
@@ -66,7 +66,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             placeholder="Выплачено"
             value={paidValue}
             onChange={(e) => setPaidValue(Number(e.target.value))}
-            className="border border-gray-500 p-2 rounded-lg"
+            className="border border-gray-500 p-2 mb-2 rounded-lg"
           />
           <input
             type="date"

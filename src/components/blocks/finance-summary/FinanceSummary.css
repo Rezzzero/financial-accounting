@@ -1,0 +1,15 @@
+.bg-finance-changer {
+  background: white;
+}
+
+.bg-currency-changer {
+  background: rgba(98, 165, 192, 0.2);
+  color: #60a5fa;
+}
+
+@media (min-width: 768px) {
+  .bg-finance-changer {
+    background: linear-gradient(to top right, #9c27b0 0%, transparent 50%),
+      linear-gradient(to right, #3b82f6 8%, #6366f1 100%);
+  }
+}

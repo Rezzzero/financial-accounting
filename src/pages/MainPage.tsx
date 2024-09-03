@@ -13,15 +13,19 @@ const MainPage = () => {
 
   return (
     <div
-      className="grid gap-5"
+      className="md:grid md:gap-5 relative pb-[60px] md:pb-0"
       style={{ gridTemplateColumns: isSidebarCollapsed ? "3% 92%" : "13% 84%" }}
     >
-      <SidebarComponent onToggleSidebar={handleToggleSidebar} />
+      <div className="absolute bg-white left-0 bottom-0 w-full md:static md:w-[250px]">
+        <SidebarComponent onToggleSidebar={handleToggleSidebar} />
+      </div>
       <div className="mt-5">
-        <FinanceSummary />
-        <h1 className="text-3xl font-bold mb-5">Операции</h1>
+        <div className="w-full">
+          <FinanceSummary />
+        </div>
+        <h1 className="text-3xl font-bold mb-5 hidden md:block">Операции</h1>
         <div
-          className="div grid gap-5"
+          className="md:grid md:gap-5"
           style={{ gridTemplateColumns: "75% 25%" }}
         >
           <div className="grid">
@@ -29,7 +33,7 @@ const MainPage = () => {
             <CoreFinanceComponent title={"Счета"} />
             <CoreFinanceComponent title={"Расходы"} />
           </div>
-          <div>
+          <div className="mb-[45px] md:mb-0">
             <TargetBlockComponent />
             <DebtsBlock />
           </div>

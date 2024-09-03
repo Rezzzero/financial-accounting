@@ -5,6 +5,7 @@ import { RootState } from "../../../store/types";
 import { useSelector } from "react-redux";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
+import "./FinanceSummary.css";
 
 const convertToRUB = (amount: number, currency: string, rates: any) => {
   if (!rates) return 0;
@@ -78,28 +79,12 @@ export const FinanceSummary = () => {
   }, []);
 
   return (
-    <div
-      className="w-[75%] h-[150px] text-white py-4 px-5 border border-gray-300 rounded-lg overflow-y-auto shadow-lg shadow-gray-300 mb-[80px]"
-      style={{
-        background: `
-          linear-gradient(
-            to top right, 
-            #9C27B0 0%, 
-            transparent 50%
-          ), 
-          linear-gradient(
-            to right, 
-            #3b82f6 8%, 
-            #6366f1 100%
-          )
-        `,
-      }}
-    >
+    <div className="bg-finance-changer w-[100%] md:w-[75%] md:h-[150px] md:text-white py-4 px-5 border border-gray-300 rounded-lg shadow-lg shadow-gray-300 md:mb-[80px]">
       <div className="flex justify-between font-bold mb-4">
         <h1 className="text-xl">
           {currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)}
         </h1>
-        <p className="text-sm font-semibold bg-gray-200 bg-opacity-10 rounded-lg px-2 py-1">
+        <p className="bg-currency-changer text-sm font-semibold md:bg-gray-200 bg-opacity-10 rounded-lg px-2 py-1">
           {exchangeRates
             ? `1 USD = ${(exchangeRates.RUB / exchangeRates.USD).toFixed(
                 2
@@ -107,10 +92,10 @@ export const FinanceSummary = () => {
             : "Загрузка..."}
         </p>
       </div>
-      <div className="flex justify-center gap-4">
+      <div className="flex flex-wrap justify-between">
         {financeSummaryData.map((item) => (
           <div
-            className="w-[25%] bg-gray-200 bg-opacity-10 rounded-lg p-2"
+            className="w-[45%] md:w-[24%] bg-gray-200 bg-opacity-10 rounded-lg p-2"
             key={item.title}
           >
             <p className="text-xl font-bold">{formatNumber(item.amount)} ₽</p>
