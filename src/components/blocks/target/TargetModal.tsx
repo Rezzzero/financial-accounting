@@ -4,6 +4,7 @@ import {
   AddTargetModalProps,
 } from "../../../types/TargetTypes/TargetTypes";
 import { iconMapping, availableColors } from "../SelectedIcon";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 export const TargetModal = ({
   isOpen,
@@ -15,6 +16,7 @@ export const TargetModal = ({
   const [name, setName] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<string>("add");
   const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
+  const [currency, setCurrency] = useState<string>("");
 
   useEffect(() => {
     if (!isOpen) {
@@ -23,6 +25,7 @@ export const TargetModal = ({
       setName("");
       setSelectedIcon("add");
       setSelectedColor("bg-gray-400");
+      setCurrency("");
     }
   }, [isOpen]);
 
@@ -40,6 +43,7 @@ export const TargetModal = ({
       currentValue: currValue,
       targetValue,
       icon: { type: selectedIcon, background: selectedColor },
+      currency,
     };
     onSave(newTarget);
     onClose();
@@ -59,6 +63,21 @@ export const TargetModal = ({
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
+
+          <FormControl fullWidth>
+            <p>Валюта</p>
+            <Select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              style={{ height: 42, border: "1px solid gray", borderRadius: 8 }}
+            >
+              <MenuItem value="USD">USD</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
+              <MenuItem value="RUB">RUB</MenuItem>
+              <MenuItem value="UAH">UAH</MenuItem>
+            </Select>
+          </FormControl>
+
           <label htmlFor="target-value">Текущаяя Сумма</label>
           <input
             type="number"

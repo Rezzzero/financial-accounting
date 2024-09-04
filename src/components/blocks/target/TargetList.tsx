@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { CurrencyState } from "../../../store/slices/currencySlice";
 
 const sliderSettings = {
   dots: true,
@@ -22,9 +23,13 @@ const sliderSettings = {
 export const TargetList = ({
   targetData,
   removeTarget,
+  selectedCurrency,
+  exchangeRates,
 }: {
   targetData: TargetProps[];
   removeTarget: (itemTitle: string) => void;
+  selectedCurrency: CurrencyState["selectedCurrency"];
+  exchangeRates: any;
 }) => {
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -55,6 +60,24 @@ export const TargetList = ({
     targetValue: number
   ): number => {
     return targetValue > 0 ? (currentValue / targetValue) * 100 : 0;
+  };
+
+  const convertCurrency = (
+    amount: number,
+    fromCurrency: string,
+    toCurrency: string
+  ): number => {
+    if (!exchangeRates || !fromCurrency || !toCurrency) return amount;
+
+    const fromRate = exchangeRates[fromCurrency];
+    const toRate = exchangeRates[toCurrency];
+
+    if (!fromRate || !toRate) return amount;
+
+    if (fromCurrency === toCurrency) return amount;
+
+    const rate = toRate / fromRate;
+    return amount * rate;
   };
 
   return (
@@ -89,10 +112,27 @@ export const TargetList = ({
                   className="font-bold cursor-pointer"
                   onClick={() => handleEdit(index)}
                 >
-                  {formatNumber(target.currentValue)} ₽
+                  {formatNumber(
+                    convertCurrency(
+                      target.currentValue,
+                      target.currency,
+                      selectedCurrency?.value
+                    )
+                  )}{" "}
+                  {selectedCurrency?.symbol}
                 </p>
               )}
-              <p className="text-sm">из {formatNumber(target.targetValue)} ₽</p>
+              <p className="text-sm">
+                из{" "}
+                {formatNumber(
+                  convertCurrency(
+                    target.targetValue,
+                    target.currency,
+                    selectedCurrency?.value
+                  )
+                )}{" "}
+                {selectedCurrency?.symbol}
+              </p>
             </div>
           </div>
           <LinearWithValueLabel

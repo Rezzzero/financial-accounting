@@ -6,8 +6,17 @@ import { TargetModal } from "./TargetModal";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/types";
 import { addGoal, removeGoal } from "../../../store/slices/goalsSlice";
+import { CurrencyState } from "../../../store/slices/currencySlice";
 
-export const TargetBlockComponent = () => {
+interface TargetBlockProps {
+  selectedCurrency: CurrencyState["selectedCurrency"];
+  exchangeRates: any;
+}
+
+export const TargetBlockComponent = ({
+  selectedCurrency,
+  exchangeRates,
+}: TargetBlockProps) => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,7 +35,12 @@ export const TargetBlockComponent = () => {
   return (
     <>
       <BlockFormComponent title="Цели" onAddItem={() => setIsModalOpen(true)}>
-        <TargetList targetData={targetData} removeTarget={handleRemoveTarget} />
+        <TargetList
+          targetData={targetData}
+          removeTarget={handleRemoveTarget}
+          selectedCurrency={selectedCurrency}
+          exchangeRates={exchangeRates}
+        />
       </BlockFormComponent>
 
       <TargetModal

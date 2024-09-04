@@ -4,11 +4,23 @@ import { DebtsBlock } from "../components/blocks/debt/DebtsBlock";
 import { FinanceSummary } from "../components/blocks/finance-summary/FinanceSummary";
 import { useState } from "react";
 import { CoreFinanceComponent } from "../components/blocks/core-finance-block/CoreFinanceComponent";
+import { ChangeCurrency } from "../components/blocks/changeCurrency";
+import { useSelector } from "react-redux";
+import { RootState } from "../store/types";
 const MainPage = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [exchangeRates, setExchangeRates] = useState<any>(null);
+
+  const selectedCurrency = useSelector(
+    (state: RootState) => state.currency.selectedCurrency
+  );
 
   const handleToggleSidebar = (collapsed: boolean) => {
     setIsSidebarCollapsed(collapsed);
+  };
+
+  const handleExchangeRatesUpdate = (rates: any) => {
+    setExchangeRates(rates);
   };
 
   return (
@@ -20,8 +32,12 @@ const MainPage = () => {
         <SidebarComponent onToggleSidebar={handleToggleSidebar} />
       </div>
       <div className="mt-5">
-        <div className="w-full">
-          <FinanceSummary />
+        <div className="flex flex-col items-center md:items-start md:flex-row md:justify-between w-full">
+          <FinanceSummary
+            selectedCurrency={selectedCurrency}
+            onExchangeRatesUpdate={handleExchangeRatesUpdate}
+          />
+          <ChangeCurrency />
         </div>
         <h1 className="text-3xl font-bold mb-5 hidden md:block">Операции</h1>
         <div
@@ -34,8 +50,14 @@ const MainPage = () => {
             <CoreFinanceComponent title={"Расходы"} />
           </div>
           <div className="mb-[45px] md:mb-0">
-            <TargetBlockComponent />
-            <DebtsBlock />
+            <TargetBlockComponent
+              selectedCurrency={selectedCurrency}
+              exchangeRates={exchangeRates}
+            />
+            <DebtsBlock
+              selectedCurrency={selectedCurrency}
+              exchangeRates={exchangeRates}
+            />
           </div>
         </div>
       </div>

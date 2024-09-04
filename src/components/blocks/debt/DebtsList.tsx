@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { CurrencyState } from "../../../store/slices/currencySlice";
 
 const sliderSettings = {
   dots: true,
@@ -22,9 +23,13 @@ const sliderSettings = {
 export const DebtsList = ({
   debtsData,
   removeDebt,
+  selectedCurrency,
+  exchangeRates,
 }: {
   debtsData: DebtProps[];
   removeDebt: (itemTitle: string) => void;
+  selectedCurrency: CurrencyState["selectedCurrency"];
+  exchangeRates: any;
 }) => {
   const dispatch = useDispatch();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -43,11 +48,34 @@ export const DebtsList = ({
     }
   };
 
+  const calculatePercentage = (
+    currentValue: number,
+    targetValue: number
+  ): number => {
+    return targetValue > 0 ? (currentValue / targetValue) * 100 : 0;
+  };
+
+  const convertCurrency = (
+    amount: number,
+    fromCurrency: string,
+    toCurrency: string
+  ): number => {
+    if (!exchangeRates || !fromCurrency || !toCurrency) return amount;
+
+    const fromRate = exchangeRates[fromCurrency];
+    const toRate = exchangeRates[toCurrency];
+
+    if (!fromRate || !toRate) return amount;
+
+    if (fromCurrency === toCurrency) return amount;
+
+    const rate = toRate / fromRate;
+    return amount * rate;
+  };
+
   return (
     <Slider {...sliderSettings}>
       {debtsData.map((debt, index) => {
-        const percentage = (debt.paidValue / debt.currValue) * 100;
-
         return (
           <div
             key={index}
@@ -62,7 +90,16 @@ export const DebtsList = ({
                 <AttachMoneyIcon />
               </div>
               <div className="flex flex-col">
-                <p className="font-bold">{formatNumber(debt.currValue)} ₽</p>
+                <p className="font-bold">
+                  {formatNumber(
+                    convertCurrency(
+                      debt.currValue,
+                      debt.currency,
+                      selectedCurrency.value
+                    )
+                  )}{" "}
+                  {selectedCurrency.symbol}
+                </p>
               </div>
             </div>
             <div className="flex justify-between">
@@ -90,14 +127,32 @@ export const DebtsList = ({
                     className="font-bold cursor-pointer"
                     onClick={() => setEditingIndex(index)}
                   >
-                    {formatNumber(debt.paidValue)} ₽
+                    {formatNumber(
+                      convertCurrency(
+                        debt.paidValue,
+                        debt.currency,
+                        selectedCurrency.value
+                      )
+                    )}{" "}
+                    {selectedCurrency.symbol}
                   </p>
                 )}
-                <p>{formatNumber(debt.remainValue)} ₽</p>
+                <p>
+                  {formatNumber(
+                    convertCurrency(
+                      debt.remainValue,
+                      debt.currency,
+                      selectedCurrency.value
+                    )
+                  )}{" "}
+                  {selectedCurrency.symbol}
+                </p>
                 <p>{new Date(debt.returnTo).toLocaleDateString()}</p>
               </div>
             </div>
-            <LinearWithValueLabel percentage={percentage} />
+            <LinearWithValueLabel
+              percentage={calculatePercentage(debt.paidValue, debt.currValue)}
+            />
             <p>{debt.title}</p>
           </div>
         );

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 interface AddDebtModalProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
     new Date().toISOString().split("T")[0]
   );
   const [title, setTitle] = useState("");
+  const [currency, setCurrency] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -21,6 +23,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
       setPaidValue(0);
       setReturnTo(new Date().toISOString().split("T")[0]);
       setTitle("");
+      setCurrency("");
     }
   }, [isOpen]);
 
@@ -31,6 +34,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
       remainValue: currValue - paidValue,
       returnTo: new Date(returnTo),
       title,
+      currency,
     };
     onSave(newDebt);
     onClose();
@@ -50,6 +54,20 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             onChange={(e) => setTitle(e.target.value)}
             className="border border-gray-500 p-2 mb-2 rounded-lg"
           />
+
+          <FormControl fullWidth>
+            <p>Валюта</p>
+            <Select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+              style={{ height: 42, border: "1px solid gray", borderRadius: 8 }}
+            >
+              <MenuItem value="USD">USD</MenuItem>
+              <MenuItem value="EUR">EUR</MenuItem>
+              <MenuItem value="RUB">RUB</MenuItem>
+              <MenuItem value="UAH">UAH</MenuItem>
+            </Select>
+          </FormControl>
 
           <label htmlFor="currValue">Сумма долга</label>
           <input

@@ -4,4 +4,5 @@ export interface DebtProps {
   remainValue: number;
   returnTo: Date;
   title: string;
+  currency: string;
 }

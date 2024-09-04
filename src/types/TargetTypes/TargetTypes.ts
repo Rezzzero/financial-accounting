@@ -6,6 +6,7 @@ export interface TargetProps {
   currentValue: number;
   targetValue: number;
   name: string;
+  currency: string;
 }
 
 export interface TargetIconProps {
