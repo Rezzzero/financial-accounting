@@ -5,8 +5,8 @@ import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { m } from "framer-motion";
 
 export const SidebarComponent = ({
   onToggleSidebar,
@@ -14,6 +14,19 @@ export const SidebarComponent = ({
   onToggleSidebar: (collapsed: boolean) => void;
 }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleToggleSidebar = () => {
     setToggleSidebar(!toggleSidebar);
@@ -21,10 +34,10 @@ export const SidebarComponent = ({
   };
 
   return (
-    <motion.div
+    <m.div
       animate={{
-        width: toggleSidebar ? "60px" : "100%",
-        transition: { duration: 0.7, type: "spring" },
+        width: isMobile ? "100%" : toggleSidebar ? "60px" : "250px",
+        transition: { duration: 0.6, type: "spring" },
       }}
       className="flex flex-row justify-center h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-gray-500"
     >
@@ -89,6 +102,6 @@ export const SidebarComponent = ({
           </button>
         </div>
       )}
-    </motion.div>
+    </m.div>
   );
 };

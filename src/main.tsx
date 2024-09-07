@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AccountPage from "./pages/AccountPage.tsx";
 import SpendingPage from "./pages/SpendingPage.tsx";
 import TargetPage from "./pages/TargetPage.tsx";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={financeStore}>
-      <RouterProvider router={router} />
+      <LazyMotion features={domAnimation}>
+        <RouterProvider router={router} />
+      </LazyMotion>
     </Provider>
   </React.StrictMode>
 );

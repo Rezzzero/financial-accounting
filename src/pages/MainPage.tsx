@@ -4,7 +4,7 @@ import { DebtsBlock } from "../components/blocks/debt/DebtsBlock";
 import { FinanceSummary } from "../components/blocks/finance-summary/FinanceSummary";
 import { useState } from "react";
 import { CoreFinanceComponent } from "../components/blocks/core-finance-block/CoreFinanceComponent";
-import { ChangeCurrency } from "../components/blocks/changeCurrency";
+import { ChangeCurrency } from "../components/blocks/ChangeCurrency";
 import { useSelector } from "react-redux";
 import { RootState } from "../store/types";
 const MainPage = () => {
