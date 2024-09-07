@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useEffect, useState } from "react";
 import { m } from "framer-motion";
+import { useTheme } from "../../hooks/useTheme";
 
 export const SidebarComponent = ({
   onToggleSidebar,
@@ -15,6 +16,7 @@ export const SidebarComponent = ({
 }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   useEffect(() => {
     const handleResize = () => {
@@ -28,6 +30,14 @@ export const SidebarComponent = ({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleThemeChange = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+    const backgroundColor = getComputedStyle(document.documentElement)
+      .getPropertyValue("--background-color")
+      .trim();
+    console.log("Background color:", backgroundColor);
+  };
+
   const handleToggleSidebar = () => {
     setToggleSidebar(!toggleSidebar);
     onToggleSidebar(!toggleSidebar);
@@ -37,9 +47,12 @@ export const SidebarComponent = ({
     <m.div
       animate={{
         width: isMobile ? "100%" : toggleSidebar ? "60px" : "250px",
-        transition: { duration: 0.6, type: "spring" },
+        transition: {
+          duration: 0.3,
+          type: "spring",
+        },
       }}
-      className="flex flex-row justify-center h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-gray-500"
+      className="flex flex-row justify-center bg-background-theme duration-300 h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-gray-500"
     >
       <div>
         <div className="flex justify-end pr-2 py-2 md:flex hidden">
@@ -60,26 +73,28 @@ export const SidebarComponent = ({
             <img src="../../../media/YoneyLogo.svg" alt="YoneyLogo" />
             {!toggleSidebar && <p>Yoney</p>}
           </Link>
-          {!toggleSidebar && <Switch defaultChecked />}
+          {!toggleSidebar && (
+            <Switch defaultChecked onChange={handleThemeChange} />
+          )}
         </div>
         <div className="flex md:flex-col text-sm md:text-base justify-center">
           <Link
             to="/"
-            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 hover:text-blue-400 hover:bg-gray-200"
+            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-blue-400 hover:bg-hover-color"
           >
             <AccountBalanceWalletIcon style={{ color: "#60A5FA" }} />
             {!toggleSidebar && <p>Операции</p>}
           </Link>
           <Link
             to="/"
-            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 hover:text-blue-400 hover:bg-gray-200"
+            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-blue-400 hover:bg-hover-color"
           >
             <WatchLaterIcon style={{ color: "#60A5FA" }} />
             {!toggleSidebar && <p>История</p>}
           </Link>
           <Link
             to="/"
-            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 hover:text-blue-400 hover:bg-gray-200"
+            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-blue-400 hover:bg-hover-color"
           >
             <BusinessCenterIcon style={{ color: "#60A5FA" }} />
             {!toggleSidebar && <p>Аналитика</p>}

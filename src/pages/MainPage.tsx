@@ -25,10 +25,10 @@ const MainPage = () => {
 
   return (
     <div
-      className="md:grid md:gap-5 relative pb-[60px] md:pb-0"
+      className="bg-background-theme duration-300 text-text-theme md:grid md:gap-5 relative pb-[60px] md:pb-0"
       style={{ gridTemplateColumns: isSidebarCollapsed ? "3% 92%" : "13% 84%" }}
     >
-      <div className="absolute bg-white left-0 bottom-0 w-full md:static md:w-[250px]">
+      <div className="absolute left-0 bottom-0 w-full md:static md:w-[250px]">
         <SidebarComponent onToggleSidebar={handleToggleSidebar} />
       </div>
       <div className="mt-5">

@@ -97,7 +97,7 @@ export const FinanceSummary = ({
   }, [selectedCurrency]);
 
   return (
-    <div className="bg-finance-changer w-[100%] md:w-[75%] md:h-[150px] md:text-white py-4 px-5 border border-gray-300 rounded-lg shadow-lg shadow-gray-300 md:mb-[80px]">
+    <div className="bg-finance-changer w-[100%] md:w-[75%] md:h-[150px] md:text-white py-4 px-5 rounded-lg  md:mb-[80px]">
       <div className="flex justify-between font-bold mb-4">
         <h1 className="text-xl">
           {currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)}
@@ -113,7 +113,7 @@ export const FinanceSummary = ({
       <div className="flex flex-wrap justify-between">
         {financeSummaryData.map((item) => (
           <div
-            className="w-[45%] md:w-[24%] bg-gray-200 bg-opacity-10 rounded-lg p-2"
+            className="w-[45%] md:w-[24%] bg-gray-200 bg-opacity-10 rounded-lg p-2 mb-4 md:mb-0"
             key={item.title}
           >
             <p className="text-xl font-bold">

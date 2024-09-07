@@ -43,7 +43,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-4 rounded-lg w-80">
+      <div className="bg-background-theme p-4 rounded-lg w-80">
         <h2 className="text-xl font-bold mb-4">Добавить долг</h2>
         <div className="flex flex-col">
           <label htmlFor="name">Название</label>
@@ -52,7 +52,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             placeholder="Название"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border border-gray-500 p-2 mb-2 rounded-lg"
+            className="bg-background-theme border border-gray-500 p-2 mb-2 rounded-lg"
           />
 
           <FormControl fullWidth>
@@ -75,7 +75,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             placeholder="Сумма долга"
             value={currValue}
             onChange={(e) => setCurrValue(Number(e.target.value))}
-            className="border border-gray-500 p-2 mb-2 rounded-lg"
+            className="bg-background-theme border border-gray-500 p-2 mb-2 rounded-lg"
           />
 
           <label htmlFor="paidValue">Выплачено</label>
@@ -84,13 +84,13 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             placeholder="Выплачено"
             value={paidValue}
             onChange={(e) => setPaidValue(Number(e.target.value))}
-            className="border border-gray-500 p-2 mb-2 rounded-lg"
+            className="bg-background-theme border border-gray-500 p-2 mb-2 rounded-lg"
           />
           <input
             type="date"
             value={returnTo}
             onChange={(e) => setReturnTo(e.target.value)}
-            className="border border-gray-500 p-2 rounded-lg"
+            className="bg-background-theme border border-gray-500 p-2 rounded-lg"
           />
         </div>
         <div className="flex justify-end mt-4">

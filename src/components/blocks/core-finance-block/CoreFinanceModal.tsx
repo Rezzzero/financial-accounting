@@ -63,7 +63,7 @@ export const CoreFinanceModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center justify-center">
-      <div className="bg-white rounded-lg p-4 w-80">
+      <div className="bg-background-theme rounded-lg p-4 w-80">
         <h1 className="text-xl font-bold mb-4 text-center">{modalTitle}</h1>
         <div className="flex flex-col">
           <p>Название</p>
@@ -72,7 +72,7 @@ export const CoreFinanceModal = ({
             placeholder="Название"
             value={coreFinanceTitle}
             onChange={(e) => setCoreFinanceTitle(e.target.value)}
-            className="border border-gray-500 p-2 rounded-lg mb-2"
+            className="bg-background-theme border border-gray-500 p-2 rounded-lg mb-2"
           />
 
           <FormControl fullWidth>
@@ -95,7 +95,7 @@ export const CoreFinanceModal = ({
             placeholder="Сумма"
             value={coreFinanceAmount}
             onChange={(e) => setCoreFinanceAmount(Number(e.target.value))}
-            className="border border-gray-500 p-2 rounded-lg mb-2"
+            className="bg-background-theme border border-gray-500 p-2 rounded-lg mb-2"
           />
         </div>
         <h3>Выберите иконку</h3>
@@ -104,7 +104,7 @@ export const CoreFinanceModal = ({
             <div
               key={icon}
               className={`flex h-[45px] w-[45px] bg-gray-400 rounded-full justify-center items-center cursor-pointer ${
-                icon === selectedIcon ? "ring-2 ring-black" : ""
+                icon === selectedIcon ? "ring-2 ring-target-color" : ""
               }`}
               onClick={() => handleIconClick(icon)}
             >
@@ -118,7 +118,7 @@ export const CoreFinanceModal = ({
             <div
               key={color}
               className={`h-[45px] w-[45px] rounded-full cursor-pointer ${color} ${
-                color === selectedColor ? "ring-2 ring-black" : ""
+                color === selectedColor ? "ring-2 ring-target-color" : ""
               }`}
               onClick={() => handleColorClick(color)}
             />

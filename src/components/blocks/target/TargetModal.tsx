@@ -52,13 +52,13 @@ export const TargetModal = ({
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg">
+      <div className="bg-background-theme p-4 rounded-lg">
         <h2 className="text-xl font-bold mb-4">Добавить цель</h2>
         <div className="flex flex-col mb-4">
           <label htmlFor="target-name">Название цели</label>
           <input
             type="text"
-            className="border border-gray-300 rounded p-2 mb-2"
+            className="bg-background-theme border border-gray-300 rounded p-2 mb-2"
             placeholder="Название цели"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -81,7 +81,7 @@ export const TargetModal = ({
           <label htmlFor="target-value">Текущаяя Сумма</label>
           <input
             type="number"
-            className="border border-gray-300 rounded p-2 mb-2"
+            className="bg-background-theme border border-gray-300 rounded p-2 mb-2"
             placeholder="Текущаяя Сумма"
             value={currValue}
             onChange={(e) => setCurrValue(Number(e.target.value))}
@@ -89,7 +89,7 @@ export const TargetModal = ({
           <label htmlFor="target-value">Нужно собрать</label>
           <input
             type="number"
-            className="border border-gray-300 rounded p-2 mb-2"
+            className="bg-background-theme border border-gray-300 rounded p-2 mb-2"
             placeholder="Цель"
             value={targetValue}
             onChange={(e) => setTargetValue(Number(e.target.value))}
@@ -102,7 +102,7 @@ export const TargetModal = ({
             <div
               key={icon}
               className={`flex h-[45px] w-[45px] bg-gray-400 rounded-full justify-center items-center cursor-pointer ${
-                icon === selectedIcon ? "ring-2 ring-black" : ""
+                icon === selectedIcon ? "ring-2 ring-target-color" : ""
               }`}
               onClick={() => handleIconClick(icon)}
             >
@@ -117,7 +117,7 @@ export const TargetModal = ({
             <div
               key={color}
               className={`h-[45px] w-[45px] rounded-full cursor-pointer ${color} ${
-                color === selectedColor ? "ring-2 ring-black" : ""
+                color === selectedColor ? "ring-2 ring-target-color" : ""
               }`}
               onClick={() => handleColorClick(color)}
             />

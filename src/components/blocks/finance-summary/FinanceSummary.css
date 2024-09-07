@@ -1,5 +1,5 @@
 .bg-finance-changer {
-  background: white;
+  background: var(--background-color);
 }
 
 .bg-currency-changer {

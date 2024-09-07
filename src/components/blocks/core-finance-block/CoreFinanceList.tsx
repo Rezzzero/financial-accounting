@@ -15,7 +15,7 @@ export const CoreFinanceList = ({
       {coreFinanceData.map((coreFinance) => (
         <div
           key={coreFinance.title}
-          className="flex flex-nowrap relative gap-2 p-2 border border-gray-300 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg w-[185px]"
+          className="flex flex-nowrap relative gap-2 py-2 px-4 border border-gray-300 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg w-[220px]"
         >
           <CloseIcon
             className="absolute right-1 top-1 cursor-pointer hover:text-red-600"
