@@ -11,8 +11,8 @@ export const TargetModal = ({
   onClose,
   onSave,
 }: AddTargetModalProps) => {
-  const [currValue, setCurrValue] = useState(0);
-  const [targetValue, setTargetValue] = useState(0);
+  const [currValue, setCurrValue] = useState("");
+  const [targetValue, setTargetValue] = useState("");
   const [name, setName] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<string>("add");
   const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
@@ -20,8 +20,8 @@ export const TargetModal = ({
 
   useEffect(() => {
     if (!isOpen) {
-      setCurrValue(0);
-      setTargetValue(0);
+      setCurrValue("");
+      setTargetValue("");
       setName("");
       setSelectedIcon("add");
       setSelectedColor("bg-gray-400");
@@ -40,8 +40,8 @@ export const TargetModal = ({
   const handleSave = () => {
     const newTarget: TargetProps = {
       name,
-      currentValue: currValue,
-      targetValue,
+      currentValue: Number(currValue),
+      targetValue: Number(targetValue),
       icon: { type: selectedIcon, background: selectedColor },
       currency,
     };
@@ -69,7 +69,12 @@ export const TargetModal = ({
             <Select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              style={{ height: 42, border: "1px solid gray", borderRadius: 8 }}
+              style={{
+                height: 42,
+                border: "1px solid gray",
+                borderRadius: 8,
+                color: "text-theme",
+              }}
             >
               <MenuItem value="USD">USD</MenuItem>
               <MenuItem value="EUR">EUR</MenuItem>
@@ -80,19 +85,19 @@ export const TargetModal = ({
 
           <label htmlFor="target-value">Текущаяя Сумма</label>
           <input
-            type="number"
+            type="text"
             className="bg-background-theme border border-gray-300 rounded p-2 mb-2"
             placeholder="Текущаяя Сумма"
             value={currValue}
-            onChange={(e) => setCurrValue(Number(e.target.value))}
+            onChange={(e) => setCurrValue(e.target.value)}
           />
           <label htmlFor="target-value">Нужно собрать</label>
           <input
-            type="number"
+            type="text"
             className="bg-background-theme border border-gray-300 rounded p-2 mb-2"
             placeholder="Цель"
             value={targetValue}
-            onChange={(e) => setTargetValue(Number(e.target.value))}
+            onChange={(e) => setTargetValue(e.target.value)}
           />
         </div>
 

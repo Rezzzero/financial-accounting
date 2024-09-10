@@ -9,7 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { CurrencyState } from "../../../store/slices/currencySlice";
+import { currencySymbol } from "../../../utils/constants";
 
 const sliderSettings = {
   dots: true,
@@ -23,13 +23,9 @@ const sliderSettings = {
 export const TargetList = ({
   targetData,
   removeTarget,
-  selectedCurrency,
-  exchangeRates,
 }: {
   targetData: TargetProps[];
   removeTarget: (itemTitle: string) => void;
-  selectedCurrency: CurrencyState["selectedCurrency"];
-  exchangeRates: any;
 }) => {
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState<number | null>(null);
@@ -62,24 +58,6 @@ export const TargetList = ({
     return targetValue > 0 ? (currentValue / targetValue) * 100 : 0;
   };
 
-  const convertCurrency = (
-    amount: number,
-    fromCurrency: string,
-    toCurrency: string
-  ): number => {
-    if (!exchangeRates || !fromCurrency || !toCurrency) return amount;
-
-    const fromRate = exchangeRates[fromCurrency];
-    const toRate = exchangeRates[toCurrency];
-
-    if (!fromRate || !toRate) return amount;
-
-    if (fromCurrency === toCurrency) return amount;
-
-    const rate = toRate / fromRate;
-    return amount * rate;
-  };
-
   return (
     <Slider {...sliderSettings}>
       {targetData.map((target, index) => (
@@ -104,7 +82,7 @@ export const TargetList = ({
                   onChange={(e) => setInputValue(e.target.value)}
                   onKeyDown={(e) => handleKeyDown(e, index)}
                   onBlur={() => handleSave(index)}
-                  className="font-bold"
+                  className="bg-background-theme font-bold"
                   autoFocus
                 />
               ) : (
@@ -112,26 +90,13 @@ export const TargetList = ({
                   className="font-bold cursor-pointer"
                   onClick={() => handleEdit(index)}
                 >
-                  {formatNumber(
-                    convertCurrency(
-                      target.currentValue,
-                      target.currency,
-                      selectedCurrency?.value
-                    )
-                  )}{" "}
-                  {selectedCurrency?.symbol}
+                  {formatNumber(target.currentValue)}{" "}
+                  {currencySymbol[target.currency]}
                 </p>
               )}
               <p className="text-sm">
-                из{" "}
-                {formatNumber(
-                  convertCurrency(
-                    target.targetValue,
-                    target.currency,
-                    selectedCurrency?.value
-                  )
-                )}{" "}
-                {selectedCurrency?.symbol}
+                из {formatNumber(target.targetValue)}{" "}
+                {currencySymbol[target.currency]}
               </p>
             </div>
           </div>

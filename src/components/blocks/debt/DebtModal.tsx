@@ -9,8 +9,8 @@ interface AddDebtModalProps {
 }
 
 export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
-  const [currValue, setCurrValue] = useState(0);
-  const [paidValue, setPaidValue] = useState(0);
+  const [currValue, setCurrValue] = useState("");
+  const [paidValue, setPaidValue] = useState("");
   const [returnTo, setReturnTo] = useState(
     new Date().toISOString().split("T")[0]
   );
@@ -19,8 +19,8 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
 
   useEffect(() => {
     if (isOpen) {
-      setCurrValue(0);
-      setPaidValue(0);
+      setCurrValue("");
+      setPaidValue("");
       setReturnTo(new Date().toISOString().split("T")[0]);
       setTitle("");
       setCurrency("");
@@ -29,9 +29,9 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
 
   const handleSave = () => {
     const newDebt: DebtProps = {
-      currValue,
-      paidValue,
-      remainValue: currValue - paidValue,
+      currValue: Number(currValue),
+      paidValue: Number(paidValue),
+      remainValue: Number(currValue) - Number(paidValue),
       returnTo: new Date(returnTo),
       title,
       currency,
@@ -60,7 +60,12 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
             <Select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              style={{ height: 42, border: "1px solid gray", borderRadius: 8 }}
+              style={{
+                height: 42,
+                border: "1px solid gray",
+                borderRadius: 8,
+                color: "text-theme",
+              }}
             >
               <MenuItem value="USD">USD</MenuItem>
               <MenuItem value="EUR">EUR</MenuItem>
@@ -71,19 +76,19 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
 
           <label htmlFor="currValue">Сумма долга</label>
           <input
-            type="number"
+            type="text"
             placeholder="Сумма долга"
             value={currValue}
-            onChange={(e) => setCurrValue(Number(e.target.value))}
+            onChange={(e) => setCurrValue(e.target.value)}
             className="bg-background-theme border border-gray-500 p-2 mb-2 rounded-lg"
           />
 
           <label htmlFor="paidValue">Выплачено</label>
           <input
-            type="number"
+            type="text"
             placeholder="Выплачено"
             value={paidValue}
-            onChange={(e) => setPaidValue(Number(e.target.value))}
+            onChange={(e) => setPaidValue(e.target.value)}
             className="bg-background-theme border border-gray-500 p-2 mb-2 rounded-lg"
           />
           <input

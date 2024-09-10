@@ -50,14 +50,8 @@ const MainPage = () => {
             <CoreFinanceComponent title={"Расходы"} />
           </div>
           <div className="mb-[45px] md:mb-0">
-            <TargetBlockComponent
-              selectedCurrency={selectedCurrency}
-              exchangeRates={exchangeRates}
-            />
-            <DebtsBlock
-              selectedCurrency={selectedCurrency}
-              exchangeRates={exchangeRates}
-            />
+            <TargetBlockComponent />
+            <DebtsBlock />
           </div>
         </div>
       </div>

@@ -6,17 +6,8 @@ import { DebtsList } from "./DebtsList";
 import { DebtModal } from "./DebtModal";
 import { RootState } from "../../../store/types";
 import { addDebt, removeDebt } from "../../../store/slices/debtsSlice";
-import { CurrencyState } from "../../../store/slices/currencySlice";
 
-interface DebtsBlockProps {
-  selectedCurrency: CurrencyState["selectedCurrency"];
-  exchangeRates: any;
-}
-
-export const DebtsBlock = ({
-  selectedCurrency,
-  exchangeRates,
-}: DebtsBlockProps) => {
+export const DebtsBlock = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -35,12 +26,7 @@ export const DebtsBlock = ({
   return (
     <>
       <BlockFormComponent title="Долги" onAddItem={() => setIsModalOpen(true)}>
-        <DebtsList
-          debtsData={debtsData}
-          removeDebt={handleRemoveDebt}
-          selectedCurrency={selectedCurrency}
-          exchangeRates={exchangeRates}
-        />
+        <DebtsList debtsData={debtsData} removeDebt={handleRemoveDebt} />
       </BlockFormComponent>
 
       <DebtModal

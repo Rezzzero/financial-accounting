@@ -9,8 +9,8 @@ import CloseIcon from "@mui/icons-material/Close";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { CurrencyState } from "../../../store/slices/currencySlice";
-import '../../../styles/CustomizeSlider.css';
+import "../../../styles/CustomizeSlider.css";
+import { currencySymbol } from "../../../utils/constants";
 
 const sliderSettings = {
   dots: true,
@@ -24,13 +24,9 @@ const sliderSettings = {
 export const DebtsList = ({
   debtsData,
   removeDebt,
-  selectedCurrency,
-  exchangeRates,
 }: {
   debtsData: DebtProps[];
   removeDebt: (itemTitle: string) => void;
-  selectedCurrency: CurrencyState["selectedCurrency"];
-  exchangeRates: any;
 }) => {
   const dispatch = useDispatch();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
@@ -56,24 +52,6 @@ export const DebtsList = ({
     return targetValue > 0 ? (currentValue / targetValue) * 100 : 0;
   };
 
-  const convertCurrency = (
-    amount: number,
-    fromCurrency: string,
-    toCurrency: string
-  ): number => {
-    if (!exchangeRates || !fromCurrency || !toCurrency) return amount;
-
-    const fromRate = exchangeRates[fromCurrency];
-    const toRate = exchangeRates[toCurrency];
-
-    if (!fromRate || !toRate) return amount;
-
-    if (fromCurrency === toCurrency) return amount;
-
-    const rate = toRate / fromRate;
-    return amount * rate;
-  };
-
   return (
     <Slider {...sliderSettings}>
       {debtsData.map((debt, index) => {
@@ -92,14 +70,7 @@ export const DebtsList = ({
               </div>
               <div className="flex flex-col">
                 <p className="font-bold">
-                  {formatNumber(
-                    convertCurrency(
-                      debt.currValue,
-                      debt.currency,
-                      selectedCurrency.value
-                    )
-                  )}{" "}
-                  {selectedCurrency.symbol}
+                  {formatNumber(debt.currValue)} {currencySymbol[debt.currency]}
                 </p>
               </div>
             </div>
@@ -115,6 +86,7 @@ export const DebtsList = ({
                     type="number"
                     value={newPayment || ""}
                     onChange={(e) => setNewPayment(parseFloat(e.target.value))}
+                    className="bg-background-theme"
                     onBlur={() => handleSavePayment(index)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
@@ -128,25 +100,13 @@ export const DebtsList = ({
                     className="font-bold cursor-pointer"
                     onClick={() => setEditingIndex(index)}
                   >
-                    {formatNumber(
-                      convertCurrency(
-                        debt.paidValue,
-                        debt.currency,
-                        selectedCurrency.value
-                      )
-                    )}{" "}
-                    {selectedCurrency.symbol}
+                    {formatNumber(debt.paidValue)}{" "}
+                    {currencySymbol[debt.currency]}
                   </p>
                 )}
                 <p>
-                  {formatNumber(
-                    convertCurrency(
-                      debt.remainValue,
-                      debt.currency,
-                      selectedCurrency.value
-                    )
-                  )}{" "}
-                  {selectedCurrency.symbol}
+                  {formatNumber(debt.remainValue)}{" "}
+                  {currencySymbol[debt.currency]}
                 </p>
                 <p>{new Date(debt.returnTo).toLocaleDateString()}</p>
               </div>
