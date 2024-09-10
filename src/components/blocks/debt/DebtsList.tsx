@@ -58,7 +58,7 @@ export const DebtsList = ({
         return (
           <div
             key={index}
-            className="flex flex-col relative border border-gray-400 hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
+            className="flex flex-col relative border border-theme-border-color hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
           >
             <CloseIcon
               className="absolute right-1 top-1 cursor-pointer hover:text-red-600"

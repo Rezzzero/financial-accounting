@@ -8,6 +8,8 @@ export default {
         "text-theme": "var(--text-color)",
         "target-color": "var(--target-color)",
         "hover-color": "var(--hover-color)",
+        "theme-border-color": "var(--border-color)",
+        "theme-shadow-color": "var(--shadow-color)",
       },
     },
   },

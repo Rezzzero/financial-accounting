@@ -32,10 +32,6 @@ export const SidebarComponent = ({
 
   const handleThemeChange = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    const backgroundColor = getComputedStyle(document.documentElement)
-      .getPropertyValue("--background-color")
-      .trim();
-    console.log("Background color:", backgroundColor);
   };
 
   const handleToggleSidebar = () => {
@@ -52,7 +48,7 @@ export const SidebarComponent = ({
           type: "spring",
         },
       }}
-      className="flex flex-row justify-center bg-background-theme duration-300 h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-gray-500"
+      className="flex flex-row justify-center bg-background-theme duration-300 h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-theme-shadow-color"
     >
       <div>
         <div className="flex justify-end pr-2 py-2 md:flex hidden">
@@ -70,7 +66,42 @@ export const SidebarComponent = ({
         </div>
         <div className="flex px-2 items-center justify-between md:flex hidden">
           <Link to="/" className="flex items-center py-3 gap-2">
-            <img src="../../../media/YoneyLogo.svg" alt="YoneyLogo" />
+            <svg
+              width="35"
+              height="35"
+              viewBox="0 0 35 35"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="11"
+                y1="5.5"
+                x2="26"
+                y2="5.5"
+                stroke="var(--svg-fill-color)"
+                strokeWidth="5"
+              />
+              <path
+                d="M17.5 22L30.9234 5.5H4.07661L17.5 22Z"
+                fill="var(--svg-fill-color)"
+              />
+              <circle
+                cx="17.5"
+                cy="17.5"
+                r="15.5"
+                stroke="var(--svg-fill-color)"
+                strokeWidth="4"
+              />
+              <line
+                x1="17.5"
+                y1="3"
+                x2="17.5"
+                y2="32"
+                stroke="var(--svg-fill-color)"
+                strokeWidth="5"
+              />
+            </svg>
+
             {!toggleSidebar && <p>Yoney</p>}
           </Link>
           {!toggleSidebar && (
