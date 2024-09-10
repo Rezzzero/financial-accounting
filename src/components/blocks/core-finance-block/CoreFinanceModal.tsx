@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 import { availableColors, iconMapping } from "../SelectedIcon";
 import { FormControl, MenuItem, Select } from "@mui/material";
+import { useTheme } from "../../../hooks/useTheme";
 
 interface CoreFinanceModalProps {
   isOpen: boolean;
@@ -18,15 +19,16 @@ export const CoreFinanceModal = ({
 }: CoreFinanceModalProps) => {
   const [coreFinanceTitle, setCoreFinanceTitle] = useState("");
   const [coreFinanceCurrency, setCoreFinanceCurrency] = useState("");
-  const [coreFinanceAmount, setCoreFinanceAmount] = useState(0);
+  const [coreFinanceAmount, setCoreFinanceAmount] = useState("");
   const [selectedIcon, setSelectedIcon] = useState("");
   const [selectedColor, setSelectedColor] = useState("bg-gray-400");
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!isOpen) {
       setCoreFinanceTitle("");
       setCoreFinanceCurrency("");
-      setCoreFinanceAmount(0);
+      setCoreFinanceAmount("");
       setSelectedIcon("");
       setSelectedColor("bg-gray-400");
     }
@@ -44,7 +46,7 @@ export const CoreFinanceModal = ({
     const newCoreFinance: CoreFinanceProps = {
       title: coreFinanceTitle,
       currency: coreFinanceCurrency,
-      amount: coreFinanceAmount,
+      amount: Number(coreFinanceAmount),
       icon: { type: selectedIcon, background: selectedColor },
     };
     onSave(newCoreFinance);
@@ -80,7 +82,12 @@ export const CoreFinanceModal = ({
             <Select
               value={coreFinanceCurrency}
               onChange={(e) => setCoreFinanceCurrency(e.target.value)}
-              style={{ height: 42, border: "1px solid gray", borderRadius: 8 }}
+              style={{
+                height: 42,
+                border: "1px solid gray",
+                borderRadius: 8,
+                color: theme === "dark" ? "white" : "black",
+              }}
             >
               <MenuItem value="USD">USD</MenuItem>
               <MenuItem value="EUR">EUR</MenuItem>
@@ -91,10 +98,10 @@ export const CoreFinanceModal = ({
 
           <p>Сумма</p>
           <input
-            type="number"
+            type="text"
             placeholder="Сумма"
             value={coreFinanceAmount}
-            onChange={(e) => setCoreFinanceAmount(Number(e.target.value))}
+            onChange={(e) => setCoreFinanceAmount(e.target.value)}
             className="bg-background-theme border border-gray-500 p-2 rounded-lg mb-2"
           />
         </div>

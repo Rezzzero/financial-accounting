@@ -11,15 +11,6 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { currencySymbol } from "../../../utils/constants";
 
-const sliderSettings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: false,
-};
-
 export const TargetList = ({
   targetData,
   removeTarget,
@@ -30,6 +21,17 @@ export const TargetList = ({
   const dispatch = useDispatch();
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState<string>("");
+
+  const sliderSettings = {
+    dots: true,
+    infinite: targetData.length > 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
 
   const handleEdit = (index: number) => {
     setEditIndex(index);

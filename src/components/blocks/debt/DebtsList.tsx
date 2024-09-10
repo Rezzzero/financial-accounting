@@ -12,15 +12,6 @@ import Slider from "react-slick";
 import "../../../styles/CustomizeSlider.css";
 import { currencySymbol } from "../../../utils/constants";
 
-const sliderSettings = {
-  dots: true,
-  infinite: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: false,
-};
-
 export const DebtsList = ({
   debtsData,
   removeDebt,
@@ -31,6 +22,17 @@ export const DebtsList = ({
   const dispatch = useDispatch();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [newPayment, setNewPayment] = useState<number | null>(null);
+
+  const sliderSettings = {
+    dots: true,
+    infinite: debtsData.length > 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
 
   const handleSavePayment = (index: number) => {
     if (newPayment !== null) {
@@ -57,7 +59,7 @@ export const DebtsList = ({
       {debtsData.map((debt, index) => {
         return (
           <div
-            key={index}
+            key={debt.title}
             className="flex flex-col relative border border-theme-border-color hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
           >
             <CloseIcon

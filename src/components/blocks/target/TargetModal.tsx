@@ -5,6 +5,7 @@ import {
 } from "../../../types/TargetTypes/TargetTypes";
 import { iconMapping, availableColors } from "../SelectedIcon";
 import { FormControl, MenuItem, Select } from "@mui/material";
+import { useTheme } from "../../../hooks/useTheme";
 
 export const TargetModal = ({
   isOpen,
@@ -17,6 +18,7 @@ export const TargetModal = ({
   const [selectedIcon, setSelectedIcon] = useState<string>("add");
   const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
   const [currency, setCurrency] = useState<string>("");
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!isOpen) {
@@ -73,7 +75,7 @@ export const TargetModal = ({
                 height: 42,
                 border: "1px solid gray",
                 borderRadius: 8,
-                color: "text-theme",
+                color: theme === "dark" ? "white" : "black",
               }}
             >
               <MenuItem value="USD">USD</MenuItem>

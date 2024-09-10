@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
 import { FormControl, MenuItem, Select } from "@mui/material";
+import { useTheme } from "../../../hooks/useTheme";
 
 interface AddDebtModalProps {
   isOpen: boolean;
@@ -16,6 +17,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
   );
   const [title, setTitle] = useState("");
   const [currency, setCurrency] = useState("");
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (isOpen) {
@@ -64,7 +66,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
                 height: 42,
                 border: "1px solid gray",
                 borderRadius: 8,
-                color: "text-theme",
+                color: theme === "dark" ? "#fff" : "#000",
               }}
             >
               <MenuItem value="USD">USD</MenuItem>
