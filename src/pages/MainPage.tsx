@@ -31,8 +31,8 @@ const MainPage = () => {
       <div className="absolute left-0 bottom-0 w-full md:static md:w-[250px]">
         <SidebarComponent onToggleSidebar={handleToggleSidebar} />
       </div>
-      <div className="mt-5">
-        <div className="flex flex-col items-center md:items-start md:flex-row md:justify-between w-full">
+      <div className="mt-5 md:ml-[100px] xl:ml-[80px] 2xl:ml-[40px]">
+        <div className="flex flex-col items-center md:items-start md:flex-row md:gap-5 w-full">
           <FinanceSummary
             selectedCurrency={selectedCurrency}
             onExchangeRatesUpdate={handleExchangeRatesUpdate}
@@ -40,16 +40,13 @@ const MainPage = () => {
           <ChangeCurrency />
         </div>
         <h1 className="text-3xl font-bold mb-5 hidden md:block">Операции</h1>
-        <div
-          className="md:grid md:gap-5"
-          style={{ gridTemplateColumns: "75% 25%" }}
-        >
-          <div className="grid">
+        <div className="md:flex md:flex-row md:gap-5 md:justify-between">
+          <div className="grid w-full">
             <CoreFinanceComponent title={"Источники дохода"} />
             <CoreFinanceComponent title={"Счета"} />
             <CoreFinanceComponent title={"Расходы"} />
           </div>
-          <div className="mb-[45px] md:mb-0">
+          <div className="mb-[45px] w-full md:mb-0 lg:w-[320px] xl:w-[340px] 2xl:w-[418px]">
             <TargetBlockComponent />
             <DebtsBlock />
           </div>
