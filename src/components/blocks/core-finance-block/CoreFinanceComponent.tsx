@@ -5,9 +5,21 @@ import { CoreFinanceList } from "./CoreFinanceList";
 import { CoreFinanceModal } from "./CoreFinanceModal";
 import { RootState } from "../../../store/types";
 import { useSelector, useDispatch } from "react-redux";
-import { addExpense, removeExpense } from "../../../store/slices/expensesSlice";
-import { addIncome, removeIncome } from "../../../store/slices/incomeSlice";
-import { addAccount, removeAccount } from "../../../store/slices/accountsSlice";
+import {
+  addExpense,
+  removeExpense,
+  updateExpense,
+} from "../../../store/slices/expensesSlice";
+import {
+  addIncome,
+  removeIncome,
+  updateIncome,
+} from "../../../store/slices/incomeSlice";
+import {
+  addAccount,
+  removeAccount,
+  updateAccount,
+} from "../../../store/slices/accountsSlice";
 
 export const CoreFinanceComponent = ({ title }: { title: string }) => {
   const dispatch = useDispatch();
@@ -58,14 +70,32 @@ export const CoreFinanceComponent = ({ title }: { title: string }) => {
     }
   };
 
+  const handleUpdateFinanceCore = (title: string, item: CoreFinanceProps) => {
+    switch (title) {
+      case "Источники дохода":
+        dispatch(updateIncome(item));
+        break;
+      case "Счета":
+        dispatch(updateAccount(item));
+        break;
+      case "Расходы":
+        dispatch(updateExpense(item));
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <>
       <BlockFormComponent title={title} onAddItem={() => setIsModalOpen(true)}>
         <CoreFinanceList
+          title={title}
           coreFinanceData={coreFinanceData}
           onRemoveItem={(itemTitle) =>
             handleRemoveFinanceCore(title, itemTitle)
           }
+          onUpdateItem={(item) => handleUpdateFinanceCore(title, item)}
         />
       </BlockFormComponent>
 

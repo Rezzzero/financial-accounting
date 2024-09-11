@@ -3,4 +3,5 @@ export interface CoreFinanceProps {
   currency: string;
   amount: number;
   icon: { type: string; background: string };
+  id: string;
 }

@@ -19,8 +19,17 @@ const expensesSlice = createSlice({
     removeExpense: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((item) => item.title !== action.payload);
     },
+    updateExpense: (state, action: PayloadAction<CoreFinanceProps>) => {
+      const index = state.list.findIndex(
+        (income) => income.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.list[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { addExpense, removeExpense } = expensesSlice.actions;
+export const { addExpense, removeExpense, updateExpense } =
+  expensesSlice.actions;
 export default expensesSlice.reducer;

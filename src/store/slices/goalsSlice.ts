@@ -17,11 +17,11 @@ const goalsSlice = createSlice({
       state.list.push(action.payload);
     },
     removeGoal: (state, action: PayloadAction<string>) => {
-      state.list = state.list.filter((item) => item.name !== action.payload);
+      state.list = state.list.filter((item) => item.title !== action.payload);
     },
     updateGoal: (state, action: PayloadAction<TargetProps>) => {
       const index = state.list.findIndex(
-        (goal) => goal.name === action.payload.name
+        (goal) => goal.id === action.payload.id
       );
       if (index !== -1) {
         state.list[index] = action.payload;

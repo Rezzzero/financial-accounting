@@ -6,6 +6,7 @@ import {
 import { iconMapping, availableColors } from "../SelectedIcon";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
+import { v4 as uuidv4 } from "uuid";
 
 export const TargetModal = ({
   isOpen,
@@ -14,7 +15,7 @@ export const TargetModal = ({
 }: AddTargetModalProps) => {
   const [currValue, setCurrValue] = useState("");
   const [targetValue, setTargetValue] = useState("");
-  const [name, setName] = useState("");
+  const [title, setTitle] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<string>("add");
   const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
   const [currency, setCurrency] = useState<string>("");
@@ -24,7 +25,7 @@ export const TargetModal = ({
     if (!isOpen) {
       setCurrValue("");
       setTargetValue("");
-      setName("");
+      setTitle("");
       setSelectedIcon("add");
       setSelectedColor("bg-gray-400");
       setCurrency("");
@@ -41,11 +42,12 @@ export const TargetModal = ({
 
   const handleSave = () => {
     const newTarget: TargetProps = {
-      name,
+      title,
       currentValue: Number(currValue),
       targetValue: Number(targetValue),
       icon: { type: selectedIcon, background: selectedColor },
       currency,
+      id: uuidv4(),
     };
     onSave(newTarget);
     onClose();
@@ -53,7 +55,7 @@ export const TargetModal = ({
 
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-10">
       <div className="bg-background-theme p-4 rounded-lg">
         <h2 className="text-xl font-bold mb-4">Добавить цель</h2>
         <div className="flex flex-col mb-4">
@@ -62,8 +64,8 @@ export const TargetModal = ({
             type="text"
             className="bg-background-theme border border-gray-300 rounded p-2 mb-2"
             placeholder="Название цели"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
           />
 
           <FormControl fullWidth>

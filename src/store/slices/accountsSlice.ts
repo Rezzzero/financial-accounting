@@ -19,8 +19,17 @@ const accountsSlice = createSlice({
     removeAccount: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((item) => item.title !== action.payload);
     },
+    updateAccount: (state, action: PayloadAction<CoreFinanceProps>) => {
+      const index = state.list.findIndex(
+        (income) => income.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.list[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { addAccount, removeAccount } = accountsSlice.actions;
+export const { addAccount, removeAccount, updateAccount } =
+  accountsSlice.actions;
 export default accountsSlice.reducer;

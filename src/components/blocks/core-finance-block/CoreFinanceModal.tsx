@@ -3,6 +3,7 @@ import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTyp
 import { availableColors, iconMapping } from "../SelectedIcon";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
+import { v4 as uuidv4 } from "uuid";
 
 interface CoreFinanceModalProps {
   isOpen: boolean;
@@ -48,6 +49,7 @@ export const CoreFinanceModal = ({
       currency: coreFinanceCurrency,
       amount: Number(coreFinanceAmount),
       icon: { type: selectedIcon, background: selectedColor },
+      id: uuidv4(),
     };
     onSave(newCoreFinance);
     onClose();
@@ -64,7 +66,7 @@ export const CoreFinanceModal = ({
   const modalTitle = titleMapping[title] || "Добавить Элемент";
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center justify-center z-10">
       <div className="bg-background-theme rounded-lg p-4 w-80">
         <h1 className="text-xl font-bold mb-4 text-center">{modalTitle}</h1>
         <div className="flex flex-col">

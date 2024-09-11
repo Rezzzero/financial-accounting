@@ -19,8 +19,16 @@ const incomeSlice = createSlice({
     removeIncome: (state, action: PayloadAction<string>) => {
       state.list = state.list.filter((item) => item.title !== action.payload);
     },
+    updateIncome: (state, action: PayloadAction<CoreFinanceProps>) => {
+      const index = state.list.findIndex(
+        (income) => income.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.list[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { addIncome, removeIncome } = incomeSlice.actions;
+export const { addIncome, removeIncome, updateIncome } = incomeSlice.actions;
 export default incomeSlice.reducer;

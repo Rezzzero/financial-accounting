@@ -21,7 +21,7 @@ const debtsSlice = createSlice({
     },
     updateDebt: (state, action: PayloadAction<DebtProps>) => {
       const index = state.list.findIndex(
-        (expense) => expense.title === action.payload.title
+        (expense) => expense.id === action.payload.id
       );
       if (index !== -1) {
         state.list[index] = action.payload;

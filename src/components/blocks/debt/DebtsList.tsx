@@ -1,16 +1,18 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import Slider from "react-slick";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import LinearWithValueLabel from "../ProgressBar";
-import { useState } from "react";
 import { formatNumber } from "../../../utils/formatingNumbers";
-import { useDispatch } from "react-redux";
 import { updateDebt } from "../../../store/slices/debtsSlice";
 import CloseIcon from "@mui/icons-material/Close";
+import EditIcon from "@mui/icons-material/Edit";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
 import "../../../styles/CustomizeSlider.css";
 import { currencySymbol } from "../../../utils/constants";
+import { EditDebtModal } from "./EditDebtModal";
 
 export const DebtsList = ({
   debtsData,
@@ -22,10 +24,13 @@ export const DebtsList = ({
   const dispatch = useDispatch();
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [newPayment, setNewPayment] = useState<number | null>(null);
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDebt, setSelectedDebt] = useState<DebtProps>({} as DebtProps);
 
   const sliderSettings = {
     dots: true,
-    infinite: debtsData.length > 1,
+    infinite: false,
     autoplay: true,
     autoplaySpeed: 5000,
     speed: 500,
@@ -35,15 +40,26 @@ export const DebtsList = ({
   };
 
   const handleSavePayment = (index: number) => {
-    if (newPayment !== null) {
+    if (newPayment !== null && newPayment !== 0) {
       const updatedDebt = { ...debtsData[index] };
       updatedDebt.paidValue += newPayment;
-      updatedDebt.remainValue = updatedDebt.currValue - updatedDebt.paidValue;
+      updatedDebt.remainValue =
+        updatedDebt.currentValue - updatedDebt.paidValue;
 
       dispatch(updateDebt(updatedDebt));
+    }
+    setNewPayment(null);
+    setEditingIndex(null);
+    setIsInputFocused(false);
+  };
 
+  const handleBlur = (index: number) => {
+    if (newPayment === null) {
       setNewPayment(null);
       setEditingIndex(null);
+      setIsInputFocused(false);
+    } else {
+      handleSavePayment(index);
     }
   };
 
@@ -54,72 +70,103 @@ export const DebtsList = ({
     return targetValue > 0 ? (currentValue / targetValue) * 100 : 0;
   };
 
+  const openModalWithDebt = (debt: DebtProps) => {
+    setSelectedDebt(debt);
+    setIsModalOpen(true);
+  };
+
   return (
-    <Slider {...sliderSettings}>
-      {debtsData.map((debt, index) => {
-        return (
-          <div
-            key={debt.title}
-            className="flex flex-col relative border border-theme-border-color hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
-          >
-            <CloseIcon
-              className="absolute right-1 top-1 cursor-pointer hover:text-red-600"
-              onClick={() => removeDebt(debt.title)}
-            />
-            <div className="flex gap-2">
-              <div className="flex h-[45px] w-[45px] bg-red-500 text-white rounded-full justify-center items-center cursor-pointer">
-                <AttachMoneyIcon />
-              </div>
-              <div className="flex flex-col">
-                <p className="font-bold">
-                  {formatNumber(debt.currValue)} {currencySymbol[debt.currency]}
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-between">
-              <div className="flex flex-col gap-2">
-                <p className="font-bold">Выплачено:</p>
-                <p>Осталось:</p>
-                <p>Вернуть до:</p>
-              </div>
-              <div className="flex flex-col gap-2">
-                {editingIndex === index ? (
-                  <input
-                    type="number"
-                    value={newPayment || ""}
-                    onChange={(e) => setNewPayment(parseFloat(e.target.value))}
-                    className="bg-background-theme"
-                    onBlur={() => handleSavePayment(index)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        handleSavePayment(index);
-                      }
-                    }}
-                    autoFocus
-                  />
-                ) : (
-                  <p
-                    className="font-bold cursor-pointer"
-                    onClick={() => setEditingIndex(index)}
-                  >
-                    {formatNumber(debt.paidValue)}{" "}
+    <>
+      {isModalOpen && (
+        <EditDebtModal
+          onClose={() => setIsModalOpen(false)}
+          data={selectedDebt}
+          onSave={(debt) => {
+            dispatch(updateDebt(debt));
+            setIsModalOpen(false);
+          }}
+        />
+      )}
+      <Slider {...sliderSettings}>
+        {debtsData.map((debt, index) => {
+          return (
+            <div
+              key={debt.title}
+              className="flex flex-col relative border border-theme-border-color hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
+            >
+              <EditIcon
+                className="absolute right-8 top-1 cursor-pointer hover:text-blue-600"
+                onClick={() => openModalWithDebt(debt)}
+              />
+              <CloseIcon
+                className="absolute right-1 top-1 cursor-pointer hover:text-red-600"
+                onClick={() => removeDebt(debt.title)}
+              />
+              <div className="flex gap-2">
+                <div className="flex h-[45px] w-[45px] bg-red-500 text-white rounded-full justify-center items-center cursor-pointer">
+                  <AttachMoneyIcon />
+                </div>
+                <div className="flex flex-col">
+                  <p className="font-bold">
+                    {formatNumber(debt.currentValue)}{" "}
                     {currencySymbol[debt.currency]}
                   </p>
-                )}
-                <p>
-                  {formatNumber(debt.remainValue)}{" "}
-                  {currencySymbol[debt.currency]}
-                </p>
-                <p>{new Date(debt.returnTo).toLocaleDateString()}</p>
+                </div>
               </div>
+              <div className="flex justify-between">
+                <div className="flex flex-col gap-2">
+                  <p className="font-bold">Выплачено:</p>
+                  <p>Осталось:</p>
+                  <p>Вернуть до:</p>
+                </div>
+                <div className="flex flex-col gap-2">
+                  {editingIndex === index && isInputFocused ? (
+                    <input
+                      type="number"
+                      value={newPayment || ""}
+                      onChange={(e) =>
+                        setNewPayment(parseFloat(e.target.value))
+                      }
+                      className="bg-background-theme"
+                      onBlur={() => handleBlur(index)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          handleSavePayment(index);
+                        }
+                      }}
+                      autoFocus
+                      onFocus={() => setIsInputFocused(true)}
+                    />
+                  ) : (
+                    <p
+                      className="font-bold cursor-pointer"
+                      onClick={() => {
+                        setEditingIndex(index);
+                        setIsInputFocused(true);
+                      }}
+                    >
+                      {formatNumber(debt.paidValue)}{" "}
+                      {currencySymbol[debt.currency]}
+                    </p>
+                  )}
+                  <p>
+                    {formatNumber(debt.remainValue)}{" "}
+                    {currencySymbol[debt.currency]}
+                  </p>
+                  <p>{new Date(debt.returnTo).toLocaleDateString()}</p>
+                </div>
+              </div>
+              <LinearWithValueLabel
+                percentage={calculatePercentage(
+                  debt.paidValue,
+                  debt.currentValue
+                )}
+              />
+              <p>{debt.title}</p>
             </div>
-            <LinearWithValueLabel
-              percentage={calculatePercentage(debt.paidValue, debt.currValue)}
-            />
-            <p>{debt.title}</p>
-          </div>
-        );
-      })}
-    </Slider>
+          );
+        })}
+      </Slider>
+    </>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
+import { v4 as uuidv4 } from "uuid";
 
 interface AddDebtModalProps {
   isOpen: boolean;
@@ -31,12 +32,13 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
 
   const handleSave = () => {
     const newDebt: DebtProps = {
-      currValue: Number(currValue),
+      currentValue: Number(currValue),
       paidValue: Number(paidValue),
       remainValue: Number(currValue) - Number(paidValue),
       returnTo: new Date(returnTo),
       title,
       currency,
+      id: uuidv4(),
     };
     onSave(newDebt);
     onClose();

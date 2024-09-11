@@ -5,8 +5,9 @@ export interface TargetProps {
   };
   currentValue: number;
   targetValue: number;
-  name: string;
+  title: string;
   currency: string;
+  id: string;
 }
 
 export interface TargetIconProps {
