@@ -42,10 +42,9 @@ export const SidebarComponent = ({
   return (
     <m.div
       animate={{
-        width: isMobile ? "100%" : toggleSidebar ? "60px" : "250px",
+        width: isMobile ? "100%" : toggleSidebar ? "60px" : "100%",
         transition: {
-          duration: 0.3,
-          type: "spring",
+          duration: 0.5,
         },
       }}
       className="flex flex-row justify-center bg-background-theme duration-300 h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-theme-shadow-color"
