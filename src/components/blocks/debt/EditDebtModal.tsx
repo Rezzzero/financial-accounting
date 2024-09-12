@@ -15,6 +15,7 @@ export const EditDebtModal = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const [title, setTitle] = useState(data.title);
   const [currentValue, setCurrentValue] = useState(data.currentValue || "");
+  const [paidValue, setPaidValue] = useState(data.paidValue || "");
   const [currency, setCurrency] = useState(data.currency);
   const { theme } = useTheme();
 
@@ -37,6 +38,8 @@ export const EditDebtModal = ({
       ...data,
       title,
       currentValue: Number(currentValue),
+      paidValue: Number(paidValue),
+      remainValue: Number(currentValue) - Number(paidValue),
       currency,
     };
     onSave(updatedData);
@@ -64,6 +67,13 @@ export const EditDebtModal = ({
           value={currentValue}
           onChange={(e) => setCurrentValue(e.target.value)}
           placeholder="Текущая Сумма"
+          className="bg-background-theme w-full border border-gray-300 rounded p-2 mb-2"
+        />
+        <input
+          type="text"
+          value={paidValue}
+          onChange={(e) => setPaidValue(e.target.value)}
+          placeholder="Оплачено"
           className="bg-background-theme w-full border border-gray-300 rounded p-2 mb-2"
         />
         <FormControl fullWidth>
