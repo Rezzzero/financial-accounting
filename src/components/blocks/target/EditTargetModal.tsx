@@ -17,8 +17,9 @@ export const EditTargetModal = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const [title, setTitle] = useState(data.title);
   const [currentValue, setCurrentValue] = useState(data.currentValue || "");
+  const [targetValue, setTargetValue] = useState(data.targetValue || "");
   const { selectedColor, selectedIcon, handleColorClick, handleIconClick } =
-    useIcon();
+    useIcon(data);
   const [currency, setCurrency] = useState(data.currency);
   const { theme } = useTheme();
 
@@ -41,6 +42,7 @@ export const EditTargetModal = ({
       ...data,
       title,
       currentValue: Number(currentValue),
+      targetValue: Number(targetValue),
       currency,
       icon: { type: selectedIcon, background: selectedColor },
     };
@@ -69,6 +71,13 @@ export const EditTargetModal = ({
           value={currentValue}
           onChange={(e) => setCurrentValue(e.target.value)}
           placeholder="Текущая Сумма"
+          className="bg-background-theme w-full border border-gray-300 rounded p-2 mb-2"
+        />
+        <input
+          type="text"
+          value={targetValue}
+          onChange={(e) => setTargetValue(e.target.value)}
+          placeholder="Целевая Сумма"
           className="bg-background-theme w-full border border-gray-300 rounded p-2 mb-2"
         />
         <FormControl fullWidth>

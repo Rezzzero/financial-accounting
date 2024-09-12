@@ -1,8 +1,14 @@
 import { useState } from "react";
 
-export const useIcon = () => {
-  const [selectedIcon, setSelectedIcon] = useState<string>("add");
-  const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
+export const useIcon = (data?: {
+  icon?: { type?: string; background?: string };
+}) => {
+  const [selectedIcon, setSelectedIcon] = useState<string>(
+    data?.icon?.type || "Add"
+  );
+  const [selectedColor, setSelectedColor] = useState<string>(
+    data?.icon?.background || "bg-gray-400"
+  );
 
   const handleIconClick = (icon: string) => {
     setSelectedIcon(icon);

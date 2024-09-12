@@ -21,7 +21,7 @@ export const EditCoreModal = ({
   const [amount, setAmount] = useState(data.amount || "");
   const [currency, setCurrency] = useState(data.currency);
   const { selectedColor, selectedIcon, handleColorClick, handleIconClick } =
-    useIcon();
+    useIcon(data);
   const { theme } = useTheme();
 
   useEffect(() => {
