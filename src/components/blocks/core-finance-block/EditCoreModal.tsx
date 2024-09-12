@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
+import { PickIcon } from "../../PickIcon";
+import { useIcon } from "../../../hooks/useIcon";
 
 export const EditCoreModal = ({
   blockTitle,
@@ -18,6 +20,8 @@ export const EditCoreModal = ({
   const [title, setTitle] = useState(data.title);
   const [amount, setAmount] = useState(data.amount || "");
   const [currency, setCurrency] = useState(data.currency);
+  const { selectedColor, selectedIcon, handleColorClick, handleIconClick } =
+    useIcon();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -40,6 +44,7 @@ export const EditCoreModal = ({
       title,
       amount: Number(amount) || 0,
       currency,
+      icon: { type: selectedIcon, background: selectedColor },
     };
     onSave(updatedData);
     onClose();
@@ -47,13 +52,12 @@ export const EditCoreModal = ({
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    // Only allow numbers and empty string
     if (/^\d*\.?\d*$/.test(value)) {
       setAmount(value);
     }
   };
 
-  const editTitle = (blockTitle: string) => {
+  const editFormTitle = (blockTitle: string) => {
     switch (blockTitle) {
       case "Источники дохода":
         return "Источника дохода";
@@ -74,7 +78,7 @@ export const EditCoreModal = ({
         onClick={(e) => e.stopPropagation()}
       >
         <h1 className="text-xl font-bold mb-4">
-          Редактирование {editTitle(blockTitle)}
+          Редактирование {editFormTitle(blockTitle)}
         </h1>
         <input
           type="text"
@@ -107,6 +111,12 @@ export const EditCoreModal = ({
             <MenuItem value="UAH">UAH</MenuItem>
           </Select>
         </FormControl>
+        <PickIcon
+          selectedColor={selectedColor}
+          selectedIcon={selectedIcon}
+          handleColorClick={handleColorClick}
+          handleIconClick={handleIconClick}
+        />
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleSave}

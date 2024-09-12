@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
-import { availableColors, iconMapping } from "../SelectedIcon";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
 import { v4 as uuidv4 } from "uuid";
+import { PickIcon } from "../../PickIcon";
+import { useIcon } from "../../../hooks/useIcon";
 
 interface CoreFinanceModalProps {
   isOpen: boolean;
@@ -21,8 +22,14 @@ export const CoreFinanceModal = ({
   const [coreFinanceTitle, setCoreFinanceTitle] = useState("");
   const [coreFinanceCurrency, setCoreFinanceCurrency] = useState("");
   const [coreFinanceAmount, setCoreFinanceAmount] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState("");
-  const [selectedColor, setSelectedColor] = useState("bg-gray-400");
+  const {
+    selectedColor,
+    selectedIcon,
+    setSelectedColor,
+    setSelectedIcon,
+    handleColorClick,
+    handleIconClick,
+  } = useIcon();
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -34,14 +41,6 @@ export const CoreFinanceModal = ({
       setSelectedColor("bg-gray-400");
     }
   }, [isOpen]);
-
-  const handleIconClick = (icon: string) => {
-    setSelectedIcon(icon);
-  };
-
-  const handleColorClick = (color: string) => {
-    setSelectedColor(color);
-  };
 
   const handleSave = () => {
     const newCoreFinance: CoreFinanceProps = {
@@ -107,32 +106,12 @@ export const CoreFinanceModal = ({
             className="bg-background-theme border border-gray-500 p-2 rounded-lg mb-2"
           />
         </div>
-        <h3>Выберите иконку</h3>
-        <div className="flex flex-nowrap gap-4 mt-2 mb-2">
-          {Object.keys(iconMapping).map((icon) => (
-            <div
-              key={icon}
-              className={`flex h-[45px] w-[45px] bg-gray-400 rounded-full justify-center items-center cursor-pointer ${
-                icon === selectedIcon ? "ring-2 ring-target-color" : ""
-              }`}
-              onClick={() => handleIconClick(icon)}
-            >
-              {iconMapping[icon]}
-            </div>
-          ))}
-        </div>
-        <h3>Выберите цвет иконки</h3>
-        <div className="flex flex-nowrap gap-4 mt-2 mb-4">
-          {availableColors.map((color) => (
-            <div
-              key={color}
-              className={`h-[45px] w-[45px] rounded-full cursor-pointer ${color} ${
-                color === selectedColor ? "ring-2 ring-target-color" : ""
-              }`}
-              onClick={() => handleColorClick(color)}
-            />
-          ))}
-        </div>
+        <PickIcon
+          selectedColor={selectedColor}
+          selectedIcon={selectedIcon}
+          handleColorClick={handleColorClick}
+          handleIconClick={handleIconClick}
+        />
         <div className="flex justify-end mt-4">
           <button
             onClick={onClose}

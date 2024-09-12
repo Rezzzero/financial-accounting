@@ -3,10 +3,11 @@ import {
   TargetProps,
   AddTargetModalProps,
 } from "../../../types/TargetTypes/TargetTypes";
-import { iconMapping, availableColors } from "../SelectedIcon";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
 import { v4 as uuidv4 } from "uuid";
+import { PickIcon } from "../../PickIcon";
+import { useIcon } from "../../../hooks/useIcon";
 
 export const TargetModal = ({
   isOpen,
@@ -16,8 +17,14 @@ export const TargetModal = ({
   const [currValue, setCurrValue] = useState("");
   const [targetValue, setTargetValue] = useState("");
   const [title, setTitle] = useState("");
-  const [selectedIcon, setSelectedIcon] = useState<string>("add");
-  const [selectedColor, setSelectedColor] = useState<string>("bg-gray-400");
+  const {
+    selectedColor,
+    selectedIcon,
+    setSelectedColor,
+    setSelectedIcon,
+    handleColorClick,
+    handleIconClick,
+  } = useIcon();
   const [currency, setCurrency] = useState<string>("");
   const { theme } = useTheme();
 
@@ -31,14 +38,6 @@ export const TargetModal = ({
       setCurrency("");
     }
   }, [isOpen]);
-
-  const handleIconClick = (icon: string) => {
-    setSelectedIcon(icon);
-  };
-
-  const handleColorClick = (color: string) => {
-    setSelectedColor(color);
-  };
 
   const handleSave = () => {
     const newTarget: TargetProps = {
@@ -104,35 +103,12 @@ export const TargetModal = ({
             onChange={(e) => setTargetValue(e.target.value)}
           />
         </div>
-
-        <h3>Выберите иконку</h3>
-        <div className="flex gap-4 mt-2 mb-4">
-          {Object.keys(iconMapping).map((icon) => (
-            <div
-              key={icon}
-              className={`flex h-[45px] w-[45px] bg-gray-400 rounded-full justify-center items-center cursor-pointer ${
-                icon === selectedIcon ? "ring-2 ring-target-color" : ""
-              }`}
-              onClick={() => handleIconClick(icon)}
-            >
-              {iconMapping[icon]}
-            </div>
-          ))}
-        </div>
-
-        <h3>Выберите цвет</h3>
-        <div className="flex gap-4 mt-2 mb-4">
-          {availableColors.map((color) => (
-            <div
-              key={color}
-              className={`h-[45px] w-[45px] rounded-full cursor-pointer ${color} ${
-                color === selectedColor ? "ring-2 ring-target-color" : ""
-              }`}
-              onClick={() => handleColorClick(color)}
-            />
-          ))}
-        </div>
-
+        <PickIcon
+          selectedColor={selectedColor}
+          selectedIcon={selectedIcon}
+          handleColorClick={handleColorClick}
+          handleIconClick={handleIconClick}
+        />
         <div className="flex justify-end mt-4">
           <button
             onClick={onClose}

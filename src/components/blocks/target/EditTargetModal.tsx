@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
 import { useTheme } from "../../../hooks/useTheme";
 import { TargetProps } from "../../../types/TargetTypes/TargetTypes";
+import { useIcon } from "../../../hooks/useIcon";
+import { PickIcon } from "../../PickIcon";
 
 export const EditTargetModal = ({
   onClose,
@@ -15,6 +17,8 @@ export const EditTargetModal = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const [title, setTitle] = useState(data.title);
   const [currentValue, setCurrentValue] = useState(data.currentValue || "");
+  const { selectedColor, selectedIcon, handleColorClick, handleIconClick } =
+    useIcon();
   const [currency, setCurrency] = useState(data.currency);
   const { theme } = useTheme();
 
@@ -38,6 +42,7 @@ export const EditTargetModal = ({
       title,
       currentValue: Number(currentValue),
       currency,
+      icon: { type: selectedIcon, background: selectedColor },
     };
     onSave(updatedData);
   };
@@ -83,6 +88,12 @@ export const EditTargetModal = ({
             <MenuItem value="UAH">UAH</MenuItem>
           </Select>
         </FormControl>
+        <PickIcon
+          selectedColor={selectedColor}
+          selectedIcon={selectedIcon}
+          handleColorClick={handleColorClick}
+          handleIconClick={handleIconClick}
+        />
         <div className="flex gap-4 mt-4">
           <button
             onClick={handleSave}
