@@ -52,6 +52,9 @@ export const FinanceSummary = ({
   const expenseList = useSelector((state: RootState) => state.expenses.list);
   const accountsList = useSelector((state: RootState) => state.accounts.list);
   const debtList = useSelector((state: RootState) => state.debts.list);
+  const USDRate = localStorage.getItem("exchangeRate_USD");
+  const exchangeUSD = JSON.parse(USDRate || "{}");
+  const rubRate = exchangeUSD.RUB;
 
   const total = useMemo(() => {
     return (list: CoreFinanceProps[]) => {
@@ -146,9 +149,7 @@ export const FinanceSummary = ({
         </h1>
         <p className="bg-currency-changer text-sm font-semibold md:bg-gray-200 bg-opacity-10 rounded-lg px-2 py-1">
           {exchangeRates
-            ? `1 USD = ${(exchangeRates.RUB / exchangeRates.USD).toFixed(
-                2
-              )} рубля`
+            ? `1 USD = ${rubRate.toFixed(2)} рубля`
             : "Загрузка..."}
         </p>
       </div>
