@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { m } from "framer-motion";
 import { useTheme } from "../../hooks/useTheme";
 
+const themeList = ["bg-green-500", "bg-yellow-500"];
+
 export const SidebarComponent = ({
   onToggleSidebar,
 }: {
@@ -137,6 +139,16 @@ export const SidebarComponent = ({
       </div>
       {!toggleSidebar && (
         <div className="flex flex-col items-center gap-2 md:flex hidden">
+          {theme === "light" ? (
+            <div className="flex gap-2">
+              {themeList.map((theme, index) => (
+                <div
+                  key={index}
+                  className={`flex h-[20px] w-[20px] ${theme} rounded-full`}
+                />
+              ))}
+            </div>
+          ) : null}
           <button
             type="button"
             className="w-[180px] bg-theme-button-color text-white p-2 rounded-lg"

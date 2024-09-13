@@ -9,10 +9,10 @@ html[data-theme="dark"] {
   --hover-color: rgb(56, 56, 56);
   --button-hover-color: #c53103;
   --icon-color: #b82b00;
-  --border-color: #b82b00;
+  --border-color: #a1a1a1;
   --shadow-color: #b82b00;
   --button-color: #b82b00;
-  --add-button-color: #acacac;
+  --add-button-color: #b82b00;
   --progress-color: #b82b00;
   --svg-fill-color: white;
   --summary-background-color: linear-gradient(

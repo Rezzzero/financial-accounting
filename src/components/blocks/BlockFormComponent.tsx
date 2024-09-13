@@ -12,7 +12,7 @@ export const BlockFormComponent = ({
   onAddItem,
 }: BlockProps) => {
   return (
-    <div className="w-[100%] max-h-[300px] py-5 px-4 rounded-lg border border-theme-border-color  mb-5">
+    <div className="w-[100%] max-h-[300px] py-5 px-4 rounded-lg border border-theme-border-color shadow-md shadow-theme-shadow-color mb-5">
       <div className="flex justify-between font-bold mb-4">
         <h1 className="text-2xl">{title}</h1>
         <button
