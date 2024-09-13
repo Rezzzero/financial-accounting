@@ -68,7 +68,7 @@ html[data-theme="green"] {
 html[data-theme="purple"] {
   --background-color: #fffde7;
   --text-color: black;
-  --hover-color: rgb(255 249 196);
+  --hover-color: rgb(247, 213, 247);
   --button-hover-color: #cb2dfb;
   --icon-color: #cb2dfb;
   --shadow-color: #cb2dfb;
