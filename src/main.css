@@ -45,6 +45,46 @@ html[data-theme="light"] {
     linear-gradient(to right, #3b82f6 8%, #6366f1 100%);
   --currency-color: #60a5fa;
 }
+html[data-theme="green"] {
+  --background-color: #e0f7fa;
+  --text-color: black;
+  --hover-color: rgb(200 230 201);
+  --button-hover-color: #66bb6a;
+  --icon-color: #4caf50;
+  --shadow-color: #66bb6a;
+  --button-color: #4caf50;
+  --add-button-color: #66bb6a;
+  --progress-color: #66bb6a;
+  --svg-fill-color: black;
+  --summary-background-color: linear-gradient(
+      to top right,
+      #3cc776 0%,
+      transparent 50%
+    ),
+    linear-gradient(to right, #4dbe43 8%, #42a847 100%);
+  --currency-color: #ffffff;
+}
+
+html[data-theme="purple"] {
+  --background-color: #fffde7;
+  --text-color: black;
+  --hover-color: rgb(255 249 196);
+  --button-hover-color: #cb2dfb;
+  --icon-color: #cb2dfb;
+  --shadow-color: #cb2dfb;
+  --button-color: #cb2dfb;
+  --add-button-color: #cb2dfb;
+  --progress-color: #cb2dfb;
+  --svg-fill-color: black;
+  --currency-color: #cb2dfb;
+  --summary-background-color: linear-gradient(
+      to top right,
+      #d875e6 0%,
+      transparent 50%
+    ),
+    linear-gradient(to right, #db26db 8%, #8b23a5 100%);
+  --currency-color: #ffffff;
+}
 
 body {
   background-color: var(--background-color);

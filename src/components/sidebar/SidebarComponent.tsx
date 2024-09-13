@@ -9,7 +9,15 @@ import { useEffect, useState } from "react";
 import { m } from "framer-motion";
 import { useTheme } from "../../hooks/useTheme";
 
-const themeList = ["bg-green-500", "bg-yellow-500"];
+interface themeListProps {
+  [key: string]: string;
+}
+
+const themeList: themeListProps = {
+  light: "bg-white",
+  green: "bg-green-500",
+  purple: "bg-purple-500",
+};
 
 export const SidebarComponent = ({
   onToggleSidebar,
@@ -19,6 +27,9 @@ export const SidebarComponent = ({
   const [toggleSidebar, setToggleSidebar] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [isLightTheme, setIsLightTheme] = useState(
+    theme === "light" || theme in themeList
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,7 +44,17 @@ export const SidebarComponent = ({
   }, []);
 
   const handleThemeChange = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+    if (isLightTheme) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+    setIsLightTheme(!isLightTheme);
+  };
+
+  const handleChangeLightTheme = (key: string) => {
+    setTheme(key);
+    setIsLightTheme(true);
   };
 
   const handleToggleSidebar = () => {
@@ -107,7 +128,7 @@ export const SidebarComponent = ({
           </Link>
           {!toggleSidebar && (
             <Switch
-              defaultChecked
+              checked={!isLightTheme}
               onChange={handleThemeChange}
               color="warning"
             />
@@ -139,12 +160,13 @@ export const SidebarComponent = ({
       </div>
       {!toggleSidebar && (
         <div className="flex flex-col items-center gap-2 md:flex hidden">
-          {theme === "light" ? (
+          {theme === "light" || theme === "green" || theme === "purple" ? (
             <div className="flex gap-2">
-              {themeList.map((theme, index) => (
+              {Object.keys(themeList).map((key) => (
                 <div
-                  key={index}
-                  className={`flex h-[20px] w-[20px] ${theme} rounded-full`}
+                  key={key}
+                  className={`flex h-[20px] w-[20px] ${themeList[key]} border border-black rounded-full cursor-pointer`}
+                  onClick={() => handleChangeLightTheme(key)}
                 />
               ))}
             </div>
