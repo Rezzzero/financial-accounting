@@ -104,29 +104,33 @@ export const SidebarComponent = ({
             {!toggleSidebar && <p>Yoney</p>}
           </Link>
           {!toggleSidebar && (
-            <Switch defaultChecked onChange={handleThemeChange} />
+            <Switch
+              defaultChecked
+              onChange={handleThemeChange}
+              color="warning"
+            />
           )}
         </div>
         <div className="flex md:flex-col text-sm md:text-base justify-center">
           <Link
             to="/"
-            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-blue-400 hover:bg-hover-color"
+            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-text-hover-color hover:bg-hover-color"
           >
-            <AccountBalanceWalletIcon style={{ color: "#60A5FA" }} />
+            <AccountBalanceWalletIcon style={{ color: "var(--icon-color)" }} />
             {!toggleSidebar && <p>Операции</p>}
           </Link>
           <Link
             to="/"
-            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-blue-400 hover:bg-hover-color"
+            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-text-hover-color hover:bg-hover-color"
           >
-            <WatchLaterIcon style={{ color: "#60A5FA" }} />
+            <WatchLaterIcon style={{ color: "var(--icon-color)" }} />
             {!toggleSidebar && <p>История</p>}
           </Link>
           <Link
             to="/"
-            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-blue-400 hover:bg-hover-color"
+            className="flex flex-col md:flex-row items-center md:py-3 px-2 gap-2 rounded-md hover:text-text-hover-color hover:bg-hover-color"
           >
-            <BusinessCenterIcon style={{ color: "#60A5FA" }} />
+            <BusinessCenterIcon style={{ color: "var(--icon-color)" }} />
             {!toggleSidebar && <p>Аналитика</p>}
           </Link>
         </div>
@@ -135,13 +139,13 @@ export const SidebarComponent = ({
         <div className="flex flex-col items-center gap-2 md:flex hidden">
           <button
             type="button"
-            className="w-[180px] bg-blue-500 text-white p-2 rounded-lg"
+            className="w-[180px] bg-theme-button-color text-white p-2 rounded-lg"
           >
             Приложение
           </button>
           <button
             type="button"
-            className="w-[180px] border border-blue-500 text-blue-500 p-2 rounded-lg"
+            className="w-[180px] border border-theme-button-color text-theme-button-color p-2 rounded-lg"
           >
             Подписаться
           </button>

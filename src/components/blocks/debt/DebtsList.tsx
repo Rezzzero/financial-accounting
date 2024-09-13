@@ -92,10 +92,10 @@ export const DebtsList = ({
           return (
             <div
               key={debt.title}
-              className="flex flex-col relative border border-theme-border-color hover:bg-blue-600 hover:bg-opacity-20 hover:border-blue-600 rounded-lg p-2 mb-2 cursor-pointer"
+              className="flex flex-col relative border border-theme-border-color hover:bg-blue-600 hover:bg-opacity-20 hover:border-theme-border-color rounded-lg p-2 mb-2 cursor-pointer"
             >
               <EditIcon
-                className="absolute right-8 top-1 cursor-pointer hover:text-blue-600"
+                className="absolute right-8 top-1 cursor-pointer hover:text-theme-button-color"
                 onClick={() => openModalWithDebt(debt)}
               />
               <CloseIcon

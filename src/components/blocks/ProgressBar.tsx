@@ -10,7 +10,15 @@ function LinearProgressWithLabel(
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Box sx={{ width: "100%", mr: 1 }}>
-        <LinearProgress variant="determinate" {...props} />
+        <LinearProgress
+          variant="determinate"
+          {...props}
+          sx={{
+            "& .MuiLinearProgress-bar": {
+              backgroundColor: "var(--progress-color)",
+            },
+          }}
+        />
       </Box>
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="body2" color="text-theme">{`${Math.round(

@@ -109,10 +109,7 @@ export const DebtModal = ({ isOpen, onClose, onSave }: AddDebtModalProps) => {
           >
             Отмена
           </button>
-          <button
-            onClick={handleSave}
-            className="text-blue-500 hover:text-blue-700"
-          >
+          <button onClick={handleSave} className="text-theme-button-color">
             Сохранить
           </button>
         </div>
