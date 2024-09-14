@@ -12,6 +12,7 @@ export default {
         "theme-button-hover-color": "var(--button-hover-color)",
         "theme-border-color": "var(--border-color)",
         "theme-shadow-color": "var(--shadow-color)",
+        "sidebar-shadow-color": "var(--sidebar-shadow-color)",
         "theme-button-color": "var(--button-color)",
         "theme-add-button-color": "var(--add-button-color)",
       },

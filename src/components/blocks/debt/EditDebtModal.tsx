@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { DebtProps } from "../../../types/DebtTypes/DebtTypes";
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { useTheme } from "../../../hooks/useTheme";
 
 export const EditDebtModal = ({
   onClose,
@@ -17,7 +16,6 @@ export const EditDebtModal = ({
   const [currentValue, setCurrentValue] = useState(data.currentValue || "");
   const [paidValue, setPaidValue] = useState(data.paidValue || "");
   const [currency, setCurrency] = useState(data.currency);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -84,7 +82,9 @@ export const EditDebtModal = ({
               height: 42,
               border: "1px solid gray",
               borderRadius: 8,
-              color: theme === "dark" ? "white" : "black",
+            }}
+            sx={{
+              color: "var(--text-color)",
             }}
           >
             <MenuItem value="USD">USD</MenuItem>

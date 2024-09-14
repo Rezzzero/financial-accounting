@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { CoreFinanceProps } from "../../../types/CoreFinanceTypes/CoreFinanceTypes";
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { useTheme } from "../../../hooks/useTheme";
 import { v4 as uuidv4 } from "uuid";
 import { PickIcon } from "../../PickIcon";
 import { useIcon } from "../../../hooks/useIcon";
@@ -30,7 +29,6 @@ export const CoreFinanceModal = ({
     handleColorClick,
     handleIconClick,
   } = useIcon();
-  const { theme } = useTheme();
 
   useEffect(() => {
     if (!isOpen) {
@@ -87,7 +85,9 @@ export const CoreFinanceModal = ({
                 height: 42,
                 border: "1px solid gray",
                 borderRadius: 8,
-                color: theme === "dark" ? "white" : "black",
+              }}
+              sx={{
+                color: "var(--text-color)",
               }}
             >
               <MenuItem value="USD">USD</MenuItem>

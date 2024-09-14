@@ -9,8 +9,9 @@ html[data-theme="dark"] {
   --hover-color: rgb(56, 56, 56);
   --button-hover-color: #c53103;
   --icon-color: #b82b00;
-  --border-color: #a1a1a1;
-  --shadow-color: #b82b00;
+  --border-color: #666666;
+  --sidebar-shadow-color: #b82b00;
+  --shadow-color: #000000;
   --button-color: #b82b00;
   --add-button-color: #b82b00;
   --progress-color: #b82b00;
@@ -32,6 +33,7 @@ html[data-theme="light"] {
   --button-hover-color: #42a5f5;
   --icon-color: #60a5fa;
   --border-color: #d1d5db;
+  --sidebar-shadow-color: #6b7280;
   --shadow-color: #6b7280;
   --button-color: #3b82f6;
   --add-button-color: #3b82f6;
@@ -51,7 +53,8 @@ html[data-theme="green"] {
   --hover-color: rgb(200 230 201);
   --button-hover-color: #66bb6a;
   --icon-color: #4caf50;
-  --shadow-color: #66bb6a;
+  --sidebar-shadow-color: #66bb6a;
+  --shadow-color: #6b7280;
   --button-color: #4caf50;
   --add-button-color: #66bb6a;
   --progress-color: #66bb6a;
@@ -66,17 +69,17 @@ html[data-theme="green"] {
 }
 
 html[data-theme="purple"] {
-  --background-color: #fffde7;
+  --background-color: #e7dbf5;
   --text-color: black;
-  --hover-color: rgb(247, 213, 247);
+  --hover-color: rgb(230, 202, 248);
   --button-hover-color: #cb2dfb;
   --icon-color: #cb2dfb;
-  --shadow-color: #cb2dfb;
+  --shadow-color: #6b7280;
+  --sidebar-shadow-color: #e08bfa;
   --button-color: #cb2dfb;
   --add-button-color: #cb2dfb;
   --progress-color: #cb2dfb;
   --svg-fill-color: black;
-  --currency-color: #cb2dfb;
   --summary-background-color: linear-gradient(
       to top right,
       #d875e6 0%,

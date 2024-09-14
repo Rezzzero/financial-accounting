@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { FormControl, MenuItem, Select } from "@mui/material";
-import { useTheme } from "../../../hooks/useTheme";
 import { TargetProps } from "../../../types/TargetTypes/TargetTypes";
 import { useIcon } from "../../../hooks/useIcon";
 import { PickIcon } from "../../PickIcon";
@@ -21,7 +20,6 @@ export const EditTargetModal = ({
   const { selectedColor, selectedIcon, handleColorClick, handleIconClick } =
     useIcon(data);
   const [currency, setCurrency] = useState(data.currency);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -88,7 +86,9 @@ export const EditTargetModal = ({
               height: 42,
               border: "1px solid gray",
               borderRadius: 8,
-              color: theme === "dark" ? "white" : "black",
+            }}
+            sx={{
+              color: "var(--text-color)",
             }}
           >
             <MenuItem value="USD">USD</MenuItem>
