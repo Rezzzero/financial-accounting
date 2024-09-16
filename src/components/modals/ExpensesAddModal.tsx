@@ -44,7 +44,7 @@ const handlesetSelectedAccount = (e: any) => {
         onChange={handlesetSelectedAccount}
         value={selectedAccount}
        >
-        <option selected>Choose a expenses</option>
+        <option selected>Choose a expenses СОСАЛ???</option>
         {accounts.map((elem: any) => {
                     return (
                         <option key={elem.id} value={elem.nameExpenses}>
