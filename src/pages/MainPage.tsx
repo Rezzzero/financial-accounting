@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/types";
 const MainPage = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [exchangeRates, setExchangeRates] = useState<any>(null);
+  // const [exchangeRates, setExchangeRates] = useState<any>(null);
 
   const selectedCurrency = useSelector(
     (state: RootState) => state.currency.selectedCurrency
@@ -20,7 +20,8 @@ const MainPage = () => {
   };
 
   const handleExchangeRatesUpdate = (rates: any) => {
-    setExchangeRates(rates);
+    // setExchangeRates(rates);
+    console.log('test')
   };
 
   return (
