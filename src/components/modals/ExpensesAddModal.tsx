@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addAmount, addAmountToAccount } from "../../store/amountSlice";
+import { addAmountToAccount } from "../../store/amountSlice";
 import { useState } from "react";
 
 const ExpensesAddModal = ({ toggleModal }: { toggleModal: any }) => {
   const [amountSpent, setAmountSpent] = useState();
-  const [amountError, setAmountError] = useState("");
+  // const [amountError, setAmountError] = useState("");
   const [selectedAccount, setSelectedAccount] = useState("");
   const accounts = useSelector((state: any) => state.amount.amount);
   const dispatch = useDispatch();
@@ -62,7 +62,7 @@ const handlesetSelectedAccount = (e: any) => {
         value={amountSpent}
         onChange={handleAccountChange}
        />
-       <div>{amountError}</div>
+       {/* <div>{amountError}</div> */}
        <div className="flex justify-between mt-10">
         <button
          className=" rounded px-4 py-2 text-white   bg-gray-300"
