@@ -21,7 +21,7 @@ const MainPage = () => {
 
   const handleExchangeRatesUpdate = (rates: any) => {
     // setExchangeRates(rates);
-    console.log('test')
+    console.log('test', rates)
   };
 
   return (
