@@ -148,7 +148,7 @@ export const FinanceSummary = ({ selectedCurrency }: FinanceSummaryProps) => {
         </h1>
         <p className="bg-currency-changer text-sm font-semibold md:bg-gray-200 bg-opacity-10 rounded-lg px-2 py-1">
           {exchangeRates
-            ? `1 USD = ${usdToRub.toFixed(2)} рубля`
+            ? `1 USD = ${usdToRub?.toFixed(2)} рубля`
             : "Загрузка..."}
         </p>
       </div>
