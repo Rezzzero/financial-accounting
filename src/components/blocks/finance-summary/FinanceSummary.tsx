@@ -53,7 +53,7 @@ export const FinanceSummary = ({ selectedCurrency }: FinanceSummaryProps) => {
   const exchangeUSD = USDRate ? JSON.parse(USDRate) : ""; 
 const exchangeRUB = RUBRate ? JSON.parse(RUBRate) : ""; 
 const rubToUsd = exchangeRUB?.RUB ?? 0;
-
+console.log(exchangeUSD)
   const usdToRub = rubToUsd ? rubToUsd : 1 / 2;
 
   const total = useMemo(() => {
