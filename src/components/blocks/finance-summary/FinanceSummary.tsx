@@ -50,11 +50,11 @@ export const FinanceSummary = ({ selectedCurrency }: FinanceSummaryProps) => {
   const debtList = useSelector((state: RootState) => state.debts.list);
   const USDRate = localStorage.getItem("exchangeRate_USD");
   const RUBRate = localStorage.getItem("exchangeRate_RUB");
-  const exchangeUSD = JSON.parse(USDRate) || "";
-  const exchangeRUB = JSON. parse(RUBRate) || "" ;
-  const rubToUsd = exchangeUSD.RUB;
+  const exchangeUSD = USDRate ? JSON.parse(USDRate) : ""; 
+const exchangeRUB = RUBRate ? JSON.parse(RUBRate) : ""; 
+const rubToUsd = exchangeRUB?.RUB ?? 0;
 
-  const usdToRub = rubToUsd ? rubToUsd : 1 / exchangeRUB.USD;
+  const usdToRub = rubToUsd ? rubToUsd : 1 / 2;
 
   const total = useMemo(() => {
     return (list: CoreFinanceProps[]) => {
