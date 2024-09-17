@@ -51,7 +51,7 @@ export const FinanceSummary = ({ selectedCurrency }: FinanceSummaryProps) => {
   const USDRate = localStorage.getItem("exchangeRate_USD");
   const RUBRate = localStorage.getItem("exchangeRate_RUB");
   const exchangeUSD = JSON.parse(USDRate || "{}");
-  const exchangeRUB = JSON.parse(RUBRate || "{}");
+  const exchangeRUB = JSON. parse(RUBRate) || null ;
   const rubToUsd = exchangeUSD.RUB;
 
   const usdToRub = rubToUsd ? rubToUsd : 1 / exchangeRUB.USD;
