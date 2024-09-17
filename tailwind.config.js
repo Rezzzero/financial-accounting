@@ -16,6 +16,10 @@ export default {
         "theme-button-color": "var(--button-color)",
         "theme-add-button-color": "var(--add-button-color)",
       },
+      boxShadow: {
+        summary: "0 6px 8px -1px var(--shadow-color)",
+        sidebar: "0 0px 25px 3px var(--sidebar-shadow-color)",
+      },
     },
   },
   plugins: [],

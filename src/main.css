@@ -53,6 +53,7 @@ html[data-theme="green"] {
   --hover-color: rgb(200 230 201);
   --button-hover-color: #66bb6a;
   --icon-color: #4caf50;
+  --border-color: #d1d5db;
   --sidebar-shadow-color: #66bb6a;
   --shadow-color: #6b7280;
   --button-color: #4caf50;
@@ -74,6 +75,7 @@ html[data-theme="purple"] {
   --hover-color: rgb(230, 202, 248);
   --button-hover-color: #cb2dfb;
   --icon-color: #cb2dfb;
+  --border-color: #d1d5db;
   --shadow-color: #6b7280;
   --sidebar-shadow-color: #e08bfa;
   --button-color: #cb2dfb;

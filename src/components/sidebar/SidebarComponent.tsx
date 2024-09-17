@@ -70,7 +70,7 @@ export const SidebarComponent = ({
           duration: 0.5,
         },
       }}
-      className="flex flex-row justify-center bg-background-theme duration-300 h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 shadow-xl shadow-sidebar-shadow-color"
+      className="flex flex-row justify-center bg-background-theme duration-300 h-[80px] md:flex-col md:justify-between md:font-bold md:h-[100vh] py-4 px-2 md:shadow-sidebar md:shadow-sidebar-shadow-color"
     >
       <div>
         <div className="flex justify-end pr-2 py-2 md:flex hidden">

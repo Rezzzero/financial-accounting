@@ -38,13 +38,9 @@ export const convertToCurrency = (
 
 interface FinanceSummaryProps {
   selectedCurrency: CurrencyState["selectedCurrency"];
-  onExchangeRatesUpdate: (rates: any) => void;
 }
 
-export const FinanceSummary = ({
-  selectedCurrency,
-  onExchangeRatesUpdate,
-}: FinanceSummaryProps) => {
+export const FinanceSummary = ({ selectedCurrency }: FinanceSummaryProps) => {
   const [exchangeRates, setExchangeRates] = useState<any>(null);
   const currentMonth = new Date().toLocaleString("ru-RU", { month: "long" });
 
@@ -132,7 +128,6 @@ export const FinanceSummary = ({
           getLastUpdateKey(currency),
           new Date().toISOString()
         );
-        onExchangeRatesUpdate(data.conversion_rates);
       } catch (error) {
         console.error("Ошибка при получении курса валют:", error);
       }
@@ -142,7 +137,7 @@ export const FinanceSummary = ({
   }, [selectedCurrency]);
 
   return (
-    <div className="bg-finance-changer w-[100%] md:w-[75%] md:h-[150px] md:text-white py-4 px-5 rounded-lg  md:mb-[80px]">
+    <div className="bg-finance-changer w-[100%] md:shadow-summary md:shadow-theme-shadow-color md:w-[75%] md:h-[150px] md:text-white py-4 px-5 rounded-lg md:mb-[80px]">
       <div className="flex justify-between font-bold mb-4">
         <h1 className="text-xl">
           {currentMonth.charAt(0).toUpperCase() + currentMonth.slice(1)}

@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store/types";
 const MainPage = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [exchangeRates, setExchangeRates] = useState<any>(null);
 
   const selectedCurrency = useSelector(
     (state: RootState) => state.currency.selectedCurrency
@@ -17,10 +16,6 @@ const MainPage = () => {
 
   const handleToggleSidebar = (collapsed: boolean) => {
     setIsSidebarCollapsed(collapsed);
-  };
-
-  const handleExchangeRatesUpdate = (rates: any) => {
-    setExchangeRates(rates);
   };
 
   return (
@@ -33,10 +28,7 @@ const MainPage = () => {
       </div>
       <div className="mt-5 md:ml-[100px] xl:ml-[80px] 2xl:ml-[40px]">
         <div className="flex flex-col items-center md:items-start md:flex-row md:gap-5 w-full">
-          <FinanceSummary
-            selectedCurrency={selectedCurrency}
-            onExchangeRatesUpdate={handleExchangeRatesUpdate}
-          />
+          <FinanceSummary selectedCurrency={selectedCurrency} />
           <ChangeCurrency />
         </div>
         <h1 className="text-3xl font-bold mb-5 hidden md:block">Операции</h1>
